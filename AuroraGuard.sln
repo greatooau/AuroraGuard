@@ -6,11 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Core", "AuroraG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.ViewModels", "AuroraGuard.ViewModels\AuroraGuard.ViewModels.csproj", "{40EE922E-37AA-4EE5-A93A-E83EF642352F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Database", "AuroraGuard.Database\AuroraGuard.Database.csproj", "{B800AAAF-FB64-4AF9-BD12-56A2A795D5DF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Tests", "AuroraGuard.Tests\AuroraGuard.Tests.csproj", "{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Wpf", "AuroraGuard.Wpf\AuroraGuard.Wpf.csproj", "{90404904-444A-4210-B889-755C19D068B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DataAccess", "AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj", "{934BCE49-18AF-473D-AD43-FDE216935247}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DTOs", "AuroraGuard.DTOs\AuroraGuard.DTOs.csproj", "{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Services", "AuroraGuard.Services\AuroraGuard.Services.csproj", "{D5F94D68-8907-4C20-81B4-FADA071F0B7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,20 +28,24 @@ Global
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B800AAAF-FB64-4AF9-BD12-56A2A795D5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B800AAAF-FB64-4AF9-BD12-56A2A795D5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B800AAAF-FB64-4AF9-BD12-56A2A795D5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B800AAAF-FB64-4AF9-BD12-56A2A795D5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90404904-444A-4210-B889-755C19D068B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90404904-444A-4210-B889-755C19D068B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90404904-444A-4210-B889-755C19D068B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90404904-444A-4210-B889-755C19D068B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{90404904-444A-4210-B889-755C19D068B5} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
+		{40EE922E-37AA-4EE5-A93A-E83EF642352F} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
 	EndGlobalSection
 EndGlobal
