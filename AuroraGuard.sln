@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Core", "AuroraG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.ViewModels", "AuroraGuard.ViewModels\AuroraGuard.ViewModels.csproj", "{40EE922E-37AA-4EE5-A93A-E83EF642352F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Tests", "AuroraGuard.Tests\AuroraGuard.Tests.csproj", "{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DataAccess", "AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj", "{934BCE49-18AF-473D-AD43-FDE216935247}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DTOs", "AuroraGuard.DTOs\AuroraGuard.DTOs.csproj", "{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}"
@@ -28,10 +26,6 @@ Global
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFD31E51-4403-4B68-9CB7-B4DC78A91A8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.ActiveCfg = Release|Any CPU
