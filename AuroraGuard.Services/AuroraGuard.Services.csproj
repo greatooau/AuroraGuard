@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj" />
+      <ProjectReference Include="..\AuroraGuard.DTOs\AuroraGuard.DTOs.csproj" />
+    </ItemGroup>
+
+</Project>
