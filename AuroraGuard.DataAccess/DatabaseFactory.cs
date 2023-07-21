@@ -1,23 +1,29 @@
 ﻿using System.Data;
+using System.Data.SQLite;
 using Microsoft.Data.Sqlite;
 
 namespace AuroraGuard.DataAccess;
 
 internal static class DatabaseFactory
 {
-	internal static IDbConnection CreateDatabaseConnection(string connectionString)
+	internal static IDbConnection CreateDatabaseConnection(string dbName)
 	{
-		if (connectionString is null)
+		if (dbName is null)
 			throw new Exception("Connection string must not be null");
-		
-		
-		var connection = new SqliteConnection(connectionString);
+
+		var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), dbName);
+		if (!File.Exists(fileName))
+			SQLiteConnection.CreateFile(fileName);
+
+		IDbConnection connection = new SqliteConnection($"DataSource={fileName};");
+		connection.Open();
 
 		const string sql = @"
 			CREATE TABLE IF NOT EXISTS User (
 				Id TEXT NOT NULL PRIMARY KEY,
 				Password TEXT NOT NULL,
-				Name TEXT NOT NULL
+				Name TEXT NOT NULL,
+				Username TEXT NOT NULL
 			);
 
 			CREATE TABLE IF NOT EXISTS Credentials (
@@ -30,9 +36,11 @@ internal static class DatabaseFactory
 			);
 			";
 		
-		using var command = new SqliteCommand(sql, connection);
+		using var command = new SqliteCommand(sql, (SqliteConnection?)connection);
 
 		command.ExecuteNonQuery();
+		
+		connection.Close();
 
 		return connection;
 	}

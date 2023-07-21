@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Models;
 using AuroraGuard.DTOs.Credentials;
 using Dapper;

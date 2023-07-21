@@ -1,5 +1,4 @@
-﻿using AuroraGuard.Core.Models;
-using AuroraGuard.DTOs.Users;
+﻿using AuroraGuard.DTOs.Users;
 
 namespace AuroraGuard.DataAccess.Repositories.Users;
 
