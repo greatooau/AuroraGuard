@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DTOs", "AuroraG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Services", "AuroraGuard.Services\AuroraGuard.Services.csproj", "{D5F94D68-8907-4C20-81B4-FADA071F0B7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.UserInterface.WPF", "AuroraGuard.UserInterface.WPF\AuroraGuard.UserInterface.WPF.csproj", "{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.IoC", "AuroraGuard.IoC\AuroraGuard.IoC.csproj", "{2110A0CA-B917-40E3-8BC2-826A74770830}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,8 +42,17 @@ Global
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2110A0CA-B917-40E3-8BC2-826A74770830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2110A0CA-B917-40E3-8BC2-826A74770830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
+		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
 	EndGlobalSection
 EndGlobal
