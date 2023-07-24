@@ -23,16 +23,20 @@ internal static class DatabaseFactory
 				Id TEXT NOT NULL PRIMARY KEY,
 				Password TEXT NOT NULL,
 				Name TEXT NOT NULL,
-				Username TEXT NOT NULL
+				Username TEXT NOT NULL,
+				Salt TEXT NOT NULL,
+				UpdatedAt TEXT NOT NULL,
+				CreatedAt TEXT NOT NULL
 			);
 
-			CREATE TABLE IF NOT EXISTS Credentials (
+			CREATE TABLE IF NOT EXISTS Credential (
 				Id TEXT NOT NULL PRIMARY KEY,
 				AccessUser TEXT NOT NULL,
 				AccessPassword TEXT NOT NULL,
-				UserId INTEGER NOT NULL,
-				ModifiedAt TEXT NOT NULL,
-				CreatedAt TEXT NOT NULL
+				UserId TEXT NOT NULL,
+				UpdatedAt TEXT NOT NULL,
+				CreatedAt TEXT NOT NULL,
+				FOREIGN KEY (UserId) REFERENCES User (Id)
 			);
 			";
 		
