@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using AuroraGuard.Core.Models;
 using AuroraGuard.DataAccess.Repositories.Users;
@@ -24,23 +25,23 @@ public class AuthService : IAuthService
 		return hash;
 	}
 	
-	public async Task<bool> ValidateCredentials(LoginDto loginDto)
+	public async Task<bool> ValidateCredentials(NetworkCredential credential)
 	{
-		if (string.IsNullOrEmpty(loginDto.Username) || string.IsNullOrEmpty(loginDto.Password)) return false;
+		if (string.IsNullOrEmpty(credential.UserName) || string.IsNullOrEmpty(credential.Password)) return false;
 
-		var user = await _userRepository.GetUserByUserName(loginDto.Username);
+		var user = await _userRepository.GetUserByUserName(credential.UserName);
 
 		if (user is null)
 			return false;
 
-		var isAuthenticated = ValidatePassword(loginDto, user);
+		var isAuthenticated = ValidatePassword(credential, user);
 
 		return isAuthenticated;
 	}
 
-	private static bool ValidatePassword(LoginDto loginDto, User user)
+	private static bool ValidatePassword(NetworkCredential credential, User user)
 	{
-		var hashedPassword = Rfc2898DeriveBytes.Pbkdf2(loginDto.Password, Encoding.UTF8.GetBytes(user.Salt), 1000, HashAlgorithmName.SHA256, KeySize);
+		var hashedPassword = Rfc2898DeriveBytes.Pbkdf2(credential.Password, Encoding.UTF8.GetBytes(user.Salt), 1000, HashAlgorithmName.SHA256, KeySize);
 
 		return CryptographicOperations.FixedTimeEquals(hashedPassword, Convert.FromHexString(user.Password));
 	}
