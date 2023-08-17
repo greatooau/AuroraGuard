@@ -1,33 +1,36 @@
-﻿using AuroraGuard.DTOs.Users;
+﻿using AuroraGuard.Core.Models;
+using AuroraGuard.DTOs.Users;
 
 namespace AuroraGuard.DataAccess.Repositories.Users;
 
-internal static class UserRepositoryHelper
+public static class UserRepositoryHelper
 {
-	internal static object GenerateGetUserByUsernameParam(string username) => new {Username = username};
+	public static object GenerateGetByUsernameParam(string username) => new {Username = username};
 
-	internal static object GenerateCreateUserParam(CreateUserDto createUserDto)
+	public static User GenerateCreateParam(CreateUserDto createUserDto)
 	{
-		return new
+		return new User
 		{
-			Id = Guid.NewGuid().ToString(),
-			createUserDto.Name,
-			createUserDto.Password,
+			Id = createUserDto.Id, 
+			Password = createUserDto.Password,
+			Name = createUserDto.Name,
+			Username = createUserDto.Username,
+			Salt = createUserDto.Salt,
 			CreatedAt = DateTime.Now,
 			UpdatedAt = DateTime.Now
 		};
 	}
 	
-	internal static object GenerateUpdateUserParam(string id, UpdateUserDto updateUserDto)
+	public static object GenerateUpdateParam(Guid id, UpdateUserDto updateUserDto)
 	{
 		return new
 		{
-			Id = id,
+			Id = id.ToString(),
 			updateUserDto.Name,
 			updateUserDto.Password,
 			UpdatedAt = DateTime.Now
 		};
 	}
 
-	internal static object GenerateGetUserByIdParam(string id) => new {Id = id};
+	public static object GenerateGetByIdParam(Guid id) => new {Id = id.ToString()};
 }

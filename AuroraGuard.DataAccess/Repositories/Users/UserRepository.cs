@@ -1,54 +1,54 @@
 ﻿using System.Data;
 using AuroraGuard.Core.Models;
+using AuroraGuard.DataAccess.Repositories.DapperRepository;
 using AuroraGuard.DTOs.Users;
-using Dapper;
 
 namespace AuroraGuard.DataAccess.Repositories.Users;
 
 public class UserRepository : IUserRepository
 {
-	private readonly IDbConnection _connection;
+	private readonly IDapperRepository _dapperRepository;
 	private readonly IDbTransaction _transaction;
 
-	public UserRepository(IDbConnection connection, IDbTransaction transaction)
+	public UserRepository(IDapperRepository dapperRepository, IDbTransaction transaction)
 	{
-		_connection = connection;
+		_dapperRepository = dapperRepository;
 		_transaction = transaction;
 	}
 
-	public Task<User?> GetUserByUserName(string username)
+	public Task<User?> GetByUserName(string username)
 	{
 		const string sql = "SELECT * FROM User WHERE Username = @Username";
 
-		var param = UserRepositoryHelper.GenerateGetUserByUsernameParam(username);
+		var param = UserRepositoryHelper.GenerateGetByUsernameParam(username);
 
-		return _connection.QuerySingleOrDefaultAsync<User?>(sql, param);
+		return _dapperRepository.QuerySingleOrDefaultAsync<User?>(sql, param);
 	}
 
-	public Task<User> GetUserById(string id)
+	public Task<User> GetById(Guid id)
 	{
 		const string sql = "SELECT * FROM User WHERE Id = @Id";
 
-		var param = UserRepositoryHelper.GenerateGetUserByIdParam(id);
+		var param = UserRepositoryHelper.GenerateGetByIdParam(id);
 		
-		return _connection.QuerySingleAsync<User>(sql, param);;
+		return _dapperRepository.QuerySingleAsync<User>(sql, param);
 	}
 
-	public async Task<User> CreateUser(CreateUserDto createUserDto)
+	public async Task<User> Create(CreateUserDto createUserDto)
 	{
-		const string sql = "INSERT INTO User (Id, Password, Salt, Name, CreatedAt, UpdatedAt)" +
-		                   "VALUES (@Id, @Password, @Salt, @Name, @CreatedAt, @UpdatedAt)" +
-		                   "RETURNING Id";
+		const string sql = "INSERT INTO User (Id, Password, Username, Salt, Name, CreatedAt, UpdatedAt)" +
+		                   "VALUES (@Id, @Password, @Username, @Salt, @Name, @CreatedAt, @UpdatedAt)";
 
-		var param = UserRepositoryHelper.GenerateCreateUserParam(createUserDto);
+		var user = UserRepositoryHelper.GenerateCreateParam(createUserDto);
 
-		var id = await _connection.QuerySingleAsync<string>(sql, param, _transaction);
-
+		await _dapperRepository.ExecuteAsync(sql, user, _transaction);
 		
-		return await GetUserById(id);
+		_transaction.Commit();
+
+		return user;
 	}
 
-	public async Task UpdateUser(string id, UpdateUserDto updateUserDto)
+	public async Task Update(Guid id, UpdateUserDto updateUserDto)
 	{
 		const string sql = @"
 			UPDATE User 
@@ -58,8 +58,10 @@ public class UserRepository : IUserRepository
 			    UpdatedAt = @UpdatedAt
 			WHERE Id = @Id";
 
-		var param = UserRepositoryHelper.GenerateUpdateUserParam(id, updateUserDto);
+		var param = UserRepositoryHelper.GenerateUpdateParam(id, updateUserDto);
 
-		await _connection.ExecuteAsync(sql, param, _transaction);
+		await _dapperRepository.ExecuteAsync(sql, param, _transaction);
+		
+		_transaction.Commit();
 	}
 }

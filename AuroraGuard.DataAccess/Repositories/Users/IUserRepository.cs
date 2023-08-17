@@ -5,8 +5,8 @@ namespace AuroraGuard.DataAccess.Repositories.Users;
 
 public interface IUserRepository
 {
-	Task<User?> GetUserByUserName(string username);
-	Task<User> CreateUser(CreateUserDto createUserDto);
-	Task UpdateUser(string id, UpdateUserDto updateUserDto);
-	Task<User> GetUserById(string id);
+	Task<User?> GetByUserName(string username);
+	Task<User> Create(CreateUserDto createUserDto);
+	Task Update(Guid id, UpdateUserDto updateUserDto);
+	Task<User> GetById(Guid id);
 }
