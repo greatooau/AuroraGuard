@@ -25,10 +25,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj" />
+      <ProjectReference Include="..\AuroraGuard.Services\AuroraGuard.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
       <Folder Include="ViewModels\" />
     </ItemGroup>
 
