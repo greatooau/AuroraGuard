@@ -11,12 +11,10 @@
       <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AuroraGuard.DTOs\AuroraGuard.DTOs.csproj" />
+      <ProjectReference Include="..\AuroraGuard.Core\AuroraGuard.Core.csproj" />
     </ItemGroup>
 
 </Project>

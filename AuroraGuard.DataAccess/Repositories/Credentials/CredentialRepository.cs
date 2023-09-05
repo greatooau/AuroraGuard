@@ -1,50 +1,42 @@
 ﻿using System.Data;
+using AuroraGuard.Core.DTO.Credentials;
+using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Models;
-using AuroraGuard.DTOs.Credentials;
-using Dapper;
 
 namespace AuroraGuard.DataAccess.Repositories.Credentials;
 
 public class CredentialRepository : ICredentialRepository
 {
 	private readonly IDbTransaction _transaction;
-	private readonly IDbConnection _connection;
+	private readonly IDapperRepository _dapperRepository;
 
-	public CredentialRepository(IDbTransaction transaction, IDbConnection connection)
+	public CredentialRepository(IDbTransaction transaction, IDapperRepository dapperRepository)
 	{
 		_transaction = transaction;
-		_connection = connection;
+		_dapperRepository = dapperRepository;
 	}
 
-	public async Task<Credential> CreateCredential(CreateCredentialDto createCredentialDto, string userId)
+	public async Task<Credential> Create(CreateCredentialDto createCredentialDto)
 	{
 		const string sql = @"
-			INSERT INTO Credentials (Id, AccessUser, AccessPassword, UserId, CreatedAt, ModifiedAt)
-			VALUES (@Id, @AccessUser, @AccessPassword, @UserId, @CreatedAt, @ModifiedAt)
-			RETURNING Id";
+			INSERT INTO Credentials (Id, AccessUser, AccessPassword, CreatedAt, ModifiedAt)
+			VALUES (@Id, @AccessUser, @AccessPassword, @CreatedAt, @ModifiedAt)";
 
-		var param = CredentialRepositoryHelper.GenerateCreateCredentialParam(createCredentialDto);
+		var param = CredentialRepositoryHelper.GenerateCreateParam(createCredentialDto);
 		
-		var id = await _connection.QuerySingleAsync<string>(sql, param, _transaction);
-
-		return await GetCredentialById(id);
+		await _dapperRepository.ExecuteAsync(sql, param, _transaction);
+		
+		_transaction.Commit();
+		
+		return (Credential)param;
 	}
 
-	public Task<IEnumerable<Credential>> GetCredentialsByUserId(string userId)
-	{
-		const string sql = "SELECT * FROM Credentials WHERE UserId = @UserId";
-
-		var param = CredentialRepositoryHelper.GenerateGetCredentialByUserIdParam(userId);
-		
-		return _connection.QueryAsync<Credential>(sql, param);
-	}
-
-	public Task<Credential> GetCredentialById(string id)
+	public Task<Credential> GetById(Guid id)
 	{
 		const string sql = "SELECT * FROM Credentials WHERE Id = @Id";
 
-		var param = CredentialRepositoryHelper.GenerateGetCredentialByIdParam(id);
+		var param = CredentialRepositoryHelper.GenerateGetByIdParam(id);
 		
-		return _connection.QuerySingleAsync<Credential>(sql, param);
+		return _dapperRepository.QuerySingleAsync<Credential>(sql, param);
 	}
 }

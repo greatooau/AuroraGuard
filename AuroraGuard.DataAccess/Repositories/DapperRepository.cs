@@ -1,7 +1,8 @@
 ﻿using System.Data;
+using AuroraGuard.Core.Interfaces.Repositories;
 using Dapper;
 
-namespace AuroraGuard.DataAccess.Repositories.DapperRepository;
+namespace AuroraGuard.DataAccess.Repositories;
 
 public class DapperRepository : IDapperRepository
 {

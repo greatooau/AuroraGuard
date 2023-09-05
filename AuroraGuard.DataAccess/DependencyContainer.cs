@@ -1,6 +1,7 @@
 ﻿using System.Data;
+using AuroraGuard.Core.Interfaces;
 using AuroraGuard.DataAccess.Repositories;
-using AuroraGuard.DataAccess.UnitOfWork;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,8 +13,14 @@ public static class DependencyContainer
 	{
 		services.AddScoped<IDbConnection>(_ =>
 		{
-			var connectionString = configuration.GetConnectionString("aurora-guard")!;
-			return DatabaseFactory.CreateDatabaseConnection(connectionString);
+			var dbName = configuration.GetConnectionString("aurora-guard");
+			
+			if (dbName is null)
+				throw new Exception("Connection string must not be null");
+
+			var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), dbName);
+
+			return new SqliteConnection($"DataSource={fileName};");
 		});
 
 		services.AddScoped<IDbTransaction>(serviceProvider =>
@@ -25,10 +32,9 @@ public static class DependencyContainer
 			return connection.BeginTransaction();
 		});
 		
-		services.AddScoped<IAuroraGuardUnitOfWork, AuroraGuardUnitOfWork>();
+		services.AddScoped<IAuroraGuardUnitOfWork, UnitOfWork>();
 
 		services.AddRepositories();
-		
 		
 		return services;
 	}

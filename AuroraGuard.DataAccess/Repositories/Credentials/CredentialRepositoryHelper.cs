@@ -1,22 +1,21 @@
-﻿using AuroraGuard.DTOs.Credentials;
+﻿using AuroraGuard.Core.DTO.Credentials;
+using AuroraGuard.Core.Models;
 
 namespace AuroraGuard.DataAccess.Repositories.Credentials;
 
 public static class CredentialRepositoryHelper
 {
-	internal static object GenerateCreateCredentialParam(CreateCredentialDto createCredentialDto)
+	public static object GenerateCreateParam(CreateCredentialDto createCredentialDto)
 	{
-		return new 
+		return new Credential
 		{
-			Id = Guid.NewGuid().ToString(),
-			createCredentialDto.AccessUser,
-			createCredentialDto.AccessPassword,
+			Id = createCredentialDto.Id.ToString(),
+			AccessUser = createCredentialDto.AccessUser,
+			AccessPassword = createCredentialDto.AccessPassword,
 			CreatedAt = DateTime.Now,
 			ModifiedAt = DateTime.Now
 		};
 	}
 
-	internal static object GenerateGetCredentialByUserIdParam(string userId) => new { UserId = userId };
-	
-	internal static object GenerateGetCredentialByIdParam(string id) => new { Id = id };
+	public static object GenerateGetByIdParam(Guid id) => new { Id = id.ToString() };
 }
