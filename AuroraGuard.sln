@@ -8,13 +8,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.ViewModels", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DataAccess", "AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj", "{934BCE49-18AF-473D-AD43-FDE216935247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DTOs", "AuroraGuard.DTOs\AuroraGuard.DTOs.csproj", "{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Services", "AuroraGuard.Services\AuroraGuard.Services.csproj", "{D5F94D68-8907-4C20-81B4-FADA071F0B7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.UserInterface.WPF", "AuroraGuard.UserInterface.WPF\AuroraGuard.UserInterface.WPF.csproj", "{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.IoC", "AuroraGuard.IoC\AuroraGuard.IoC.csproj", "{2110A0CA-B917-40E3-8BC2-826A74770830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Tests", "AuroraGuard.Tests\AuroraGuard.Tests.csproj", "{A81C47A3-06D6-463A-B93D-00D5D08CD457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DatabaseSetup", "AuroraGuard.DatabaseSetup\AuroraGuard.DatabaseSetup.csproj", "{B65548A3-B7BF-4700-B084-F1DB36884F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +36,6 @@ Global
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C6118B0-CE0B-4834-80E3-BC5AC9C2C227}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F94D68-8907-4C20-81B4-FADA071F0B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,6 +48,14 @@ Global
 		{2110A0CA-B917-40E3-8BC2-826A74770830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{40EE922E-37AA-4EE5-A93A-E83EF642352F} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
