@@ -1,17 +1,21 @@
-﻿using AuroraGuard.Core.Interfaces.Services;
-using AuroraGuard.ViewModels.Views;
+﻿using AuroraGuard.Core.Interfaces;
+using AuroraGuard.Core.Interfaces.Services;
+using AuroraGuard.Tests.ViewModels.HelperClasses;
+using AuroraGuard.UserInterface.ViewModels.Auth;
+using AuroraGuard.UserInterface.WPF.Services;
+using AuroraGuard.UserInterface.WPF.Windows;
 
 namespace AuroraGuard.Tests.ViewModels;
 
-public class CreateNewMasterPasswordViewModelTests
+public class SetPasswordViewModelTests
 {
-	private readonly CreateNewMasterPasswordViewModel _sut;
+	private readonly SetPasswordViewModel _sut;
 	private readonly INavigationService _navigationService = Substitute.For<INavigationService>();
 	private readonly IAuthService _authService = Substitute.For<IAuthService>();
 	private readonly IDialogService _dialogService = Substitute.For<IDialogService>();
 	private const string Password = "FeliciaTheGoat";
 
-	public CreateNewMasterPasswordViewModelTests() => _sut = new CreateNewMasterPasswordViewModel(_dialogService, _authService, _navigationService);
+	public SetPasswordViewModelTests() => _sut = new SetPasswordViewModel(_dialogService, _authService, _navigationService);
 
 	[Fact]
 	public void ExecuteSavePassword_ShouldShowMessage_WhenPasswordCouldntBeSaved()
@@ -21,7 +25,7 @@ public class CreateNewMasterPasswordViewModelTests
 		_authService.SaveMasterPassword(Password).Returns(false);
 
 		// Act
-		_sut.SavePassword.Execute(null);
+		_sut.SavePasswordCommand.Execute(null);
 
 		// Assert
 		_authService.Received().SaveMasterPassword(Password);
@@ -33,13 +37,14 @@ public class CreateNewMasterPasswordViewModelTests
 	{
 		// Arrange
 		_sut.Password = Password;
+		var window = Substitute.For<Parameter>();
 		_authService.SaveMasterPassword(Password).Returns(true);
 
 		// Act
-		_sut.SavePassword.Execute(null);
+		_sut.SavePasswordCommand.Execute(window);
 
 		// Assert
 		_authService.Received().SaveMasterPassword(Password);
-		_navigationService.Received().NavigateTo<MainViewViewModel>();
+		window.Received().Navigate();
 	}
 }

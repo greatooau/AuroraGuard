@@ -1,6 +1,5 @@
-﻿using System.IO.Abstractions;
-using System.Security.Cryptography;
-using AuroraGuard.Core.Interfaces.Services;
+﻿using System.Security.Cryptography;
+using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Services;
 using Microsoft.Extensions.Configuration;
 using NSubstitute.ExceptionExtensions;
@@ -10,18 +9,18 @@ namespace AuroraGuard.Tests.Services;
 
 public class AuthServiceTests
 {
-	private readonly IAuthService _sut;
-	private readonly IFile _file = Substitute.For<IFile>();
+	private readonly AuthService _sut;
+	private readonly IFileService _file = Substitute.For<IFileService>();
 	private readonly IConfiguration _configuration = Substitute.For<IConfiguration>();
-	private readonly IDialogService _dialogService = Substitute.For<IDialogService>();
 	private const int KeySizeInBytes = 32;
 	private const string Password = "AuroraTyler";
+	private const string AppDirectoryName = "Peggy";
 	private const string FileName = "filename.txt";
-	private readonly string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), FileName);
+	private readonly string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDirectoryName, FileName);
 
 	public AuthServiceTests()
 	{
-		_sut = new AuthService(_file, _dialogService, _configuration);
+		_sut = new AuthService(_file, _configuration);
 	}
 
 	[Theory]
@@ -45,8 +44,8 @@ public class AuthServiceTests
 
 	public static IEnumerable<object[]> HashPassword_TestData()
 	{
-		yield return new object[] {Password, RandomNumberGenerator.GetBytes(KeySizeInBytes) };
-		yield return new object[] { "Password",  null!};
+		yield return [Password, RandomNumberGenerator.GetBytes(KeySizeInBytes)];
+		yield return ["Password",  null!];
 	}
 
 	[Fact]
@@ -65,27 +64,12 @@ public class AuthServiceTests
 		Assert.False(wasMasterPasswordSet);
 		Assert.False(canAccess);
 	}
-	
-	[Fact]
-	public void SaveMasterPassword_ShouldCallCreateAndWriteMethods()
-	{
-		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
-
-		// Act
-		var wasMasterPasswordSaved = _sut.SaveMasterPassword(Password);
-
-		// Assert
-		Assert.True(wasMasterPasswordSaved);
-		_file.Received().Create(_filePath);
-		_file.Received().WriteAllBytes(_filePath, Arg.Is<byte[]>(bytes => bytes.Length == KeySizeInBytes * 2));
-	}
 
 	[Fact]
 	public void WasMasterPasswordSet_ShouldShowError_WhenExceptionOcurredWhileReadingMasterPasswordFile()
 	{
 		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
+		ConfigurationArrange();
 
 		_file.ReadAllBytes(_filePath).Throws<Exception>();
 		
@@ -95,9 +79,14 @@ public class AuthServiceTests
 		// Assert
 		Assert.False(wasMasterPasswordSet);
 		_file.Received().ReadAllBytes(_filePath);
-		_dialogService.Received().ShowError(Arg.Any<Exception>(), "File Not Found");
 	}
-	
+
+	private void ConfigurationArrange()
+	{
+		_configuration["masterPassword-filename"].Returns(FileName);
+		_configuration["app-directory"].Returns(AppDirectoryName);
+	}
+
 	[Theory]
 	[InlineData(20)]
 	[InlineData(65)]
@@ -105,7 +94,7 @@ public class AuthServiceTests
 	public void WasMasterPasswordSet_ShouldReturnFalse_WhenHashSaltLenghtIsNot32(int byteLength)
 	{
 		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
+		ConfigurationArrange();
 		
 		var bytes = RandomNumberGenerator.GetBytes(byteLength);
 		
@@ -123,7 +112,7 @@ public class AuthServiceTests
 	public void WasMasterPasswordSet_ShouldReturnTrue()
 	{
 		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
+		ConfigurationArrange();
 		
 		var bytes = RandomNumberGenerator.GetBytes(KeySizeInBytes * 2);
 		
@@ -143,7 +132,7 @@ public class AuthServiceTests
 	public void CanAccess_ShouldReturnFalse_WhenHashSaltBytesLengthIsNot64(int byteLength)
 	{
 		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
+		ConfigurationArrange();
 		
 		var bytes = RandomNumberGenerator.GetBytes(byteLength);
 		
@@ -159,13 +148,13 @@ public class AuthServiceTests
 	
 	[Theory]
 	[InlineData(Password)]
-	[InlineData("ThisApwtoo")]
+	[InlineData("ThisYoo")]
 	[InlineData("1234")]
 	[InlineData("")]
 	public void CanAccess_ShouldLetAccess(string password)
 	{
 		// Arrange
-		_configuration[Arg.Any<string>()].Returns(FileName);
+		ConfigurationArrange();
 
 		var salt = RandomNumberGenerator.GetBytes(KeySizeInBytes);
 

@@ -8,7 +8,7 @@ namespace AuroraGuard.Tests.Repositories;
 
 public class CredentialRepositoryTests
 {
-	private readonly ICredentialRepository _sut;
+	private readonly CredentialRepository _sut;
 	private readonly IDbTransaction _dbTransaction = Substitute.For<IDbTransaction>();
 	private readonly IDapperRepository _dapperRepository = Substitute.For<IDapperRepository>();
 
