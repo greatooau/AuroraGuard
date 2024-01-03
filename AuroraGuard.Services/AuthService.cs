@@ -1,23 +1,13 @@
-﻿using System.IO.Abstractions;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
+using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace AuroraGuard.Services;
 
-public class AuthService : IAuthService
+public class AuthService(IFileService fileService, IConfiguration configuration) : IAuthService
 {
-	private readonly IFile _file;
-	private readonly IDialogService _dialogService;
-	private readonly IConfiguration _configuration;
 	private const int KeySizeInBytes = 32;
-
-	public AuthService(IFile file, IDialogService dialogService, IConfiguration configuration)
-	{
-		_file = file;
-		_dialogService = dialogService;
-		_configuration = configuration;
-	}
 
 	public (byte[] hash, byte[] hashSalt) HashPassword(string plainTextPassword, byte[]? salt = null)
 	{
@@ -43,33 +33,29 @@ public class AuthService : IAuthService
 	
 	public bool SaveMasterPassword(string masterPassword)
 	{
-		var fileName = _configuration["masterPassword-filename"];
+		var filePath = GetPasswordFilePath();
 		
-		if (fileName is null) return false;
+		if (filePath is null) return false;
 		
-		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
-
-		_file.Create(filePath);
-
 		var hashSaltBytes = HashPassword(masterPassword).hashSalt;
 
-		_file.WriteAllBytes(filePath, hashSaltBytes);
+		using var file = fileService.Create(filePath);
 		
+		file.Write(hashSaltBytes);
+
 		return true;
 	}
 
 	public bool WasMasterPasswordSet()
 	{
-		var fileName = _configuration["masterPassword-filename"];
-	
-		if (fileName is null) return false;
+		var filePath = GetPasswordFilePath();
 		
-		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
-
+		if (filePath is null) return false;
+		
 		byte[] hashSaltBytes;
 		try
 		{
-			hashSaltBytes = _file.ReadAllBytes(filePath);
+			hashSaltBytes = fileService.ReadAllBytes(filePath);
 		}
 		catch (Exception)
 		{
@@ -87,12 +73,11 @@ public class AuthService : IAuthService
 
 	public bool CanAccess(string password)
 	{
-		var fileName = _configuration["masterPassword-filename"];
+		var filePath = GetPasswordFilePath();
 	
-		if (fileName is null) return false;
-		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileName);
+		if (filePath is null) return false;
 
-		var hashSaltBytes = _file.ReadAllBytes(filePath);
+		var hashSaltBytes = fileService.ReadAllBytes(filePath);
 
 		if (hashSaltBytes.Length != KeySizeInBytes * 2) return false;
 	
@@ -104,5 +89,16 @@ public class AuthService : IAuthService
 		var result = CryptographicOperations.FixedTimeEquals(hash, hashBytes);
 		
 		return result;
+	}
+
+	private string? GetPasswordFilePath()
+	{
+		var fileName = configuration["masterPassword-filename"];
+		var appDirectory = configuration["app-directory"];
+		
+		if (fileName is null || appDirectory is null) return null;
+		
+		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appDirectory, fileName);
+		return filePath;
 	}
 }
