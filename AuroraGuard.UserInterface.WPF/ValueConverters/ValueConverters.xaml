@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:converters="clr-namespace:AuroraGuard.UserInterface.WPF.ValueConverters"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+</ResourceDictionary>

@@ -1,13 +1,15 @@
-﻿using AuroraGuard.ViewModels.Windows;
-
+﻿using AuroraGuard.Core.Interfaces;
+using AuroraGuard.UserInterface.WPF.Helpers;
 namespace AuroraGuard.UserInterface.WPF.Windows;
 
-public partial class MainWindow
+public partial class MainWindow : IResizableWindow
 {
-	
-	public MainWindow(MainWindowViewModel mainWindowViewModel)
+	public MainWindow()
 	{
 		InitializeComponent();
-		DataContext = mainWindowViewModel;
 	}
+
+	public void MaximizeRestore() => this.DoMaximizeRestore();
+
+	public void Minimize() => this.DoMinimize();
 }

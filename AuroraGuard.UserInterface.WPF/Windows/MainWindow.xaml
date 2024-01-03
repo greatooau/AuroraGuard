@@ -3,16 +3,88 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:AuroraGuard.UserInterface.WPF.Windows"
-        xmlns:v="clr-namespace:AuroraGuard.UserInterface.WPF.Views"
-        xmlns:vm="clr-namespace:AuroraGuard.ViewModels.Views;assembly=AuroraGuard.ViewModels"
+        xmlns:main="clr-namespace:AuroraGuard.UserInterface.WPF.Views.Main"
+        xmlns:vm11="clr-namespace:AuroraGuard.UserInterface.ViewModels.Main;assembly=AuroraGuard.UserInterface.ViewModels"
+        xmlns:main1="clr-namespace:AuroraGuard.UserInterface.WPF.Windows"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="Aurora Guard" Height="450" Width="800">
-    <!-- ReSharper disable once Xaml.BindingWithoutContextNotResolved -->
-    <ContentControl Content="{Binding CurrentViewModel}">
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        x:Name="ThisWindow"
+        Title="Password Manager"
+        Height="400" Width="600">
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            ResizeBorderThickness="{Binding ResizeBorderThickness, FallbackValue=10}"
+            CaptionHeight="{Binding TitleHeight}"
+            GlassFrameThickness="0"
+            CornerRadius="0"
+        />
+    </WindowChrome.WindowChrome>
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type main1:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Outer Border with the drop shadow margin -->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+                            <!-- Main window outline -->
+                            <Grid Background="White" Panel.ZIndex="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=20}"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Title bar -->
+                                <Border Grid.Row="0" Background="{StaticResource BackGround.LightGray.Brush}">
+                                    <Border HorizontalAlignment="Right">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button 
+                                                Width="25"
+                                                Command="{Binding MinimizeWindowCommand}"
+                                                CommandParameter="{Binding ElementName=ThisWindow}"
+                                                HorizontalAlignment="Right"
+                                                Content="{StaticResource Icon.Button.Close}"
+                                                Style="{StaticResource CloseButton}"/>
+                                            <Button 
+                                                Width="25"
+                                                Command="{Binding MaximizeRestoreWindowCommand}"
+                                                CommandParameter="{Binding ElementName=ThisWindow}"
+                                                HorizontalAlignment="Right"
+                                                Content="{StaticResource Icon.Button.Close}"
+                                                Style="{StaticResource CloseButton}"/>
+                                            <Button 
+                                                Width="25"
+                                                Command="{Binding CloseWindowCommand}"
+                                                CommandParameter="{Binding ElementName=ThisWindow}"
+                                                HorizontalAlignment="Right"
+                                                Content="{StaticResource Icon.Button.Close}"
+                                                Style="{StaticResource CloseButton}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Border>
+
+                                <!-- Page Content -->
+                                <Border Grid.Row="1">
+                                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+    </Window.Resources>
+    
+    <ContentControl Content="{Binding NavigationService.CurrentViewModel}">
         <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type vm:MainViewViewModel}">
-                <v:MainView/>
+            <DataTemplate DataType="{x:Type vm11:MainViewModel}">
+                <main:MainView/>
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

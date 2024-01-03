@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- #region Main Color -->
+    <Color x:Key="App.MainColor">#34bad2</Color>
+    <SolidColorBrush x:Key="App.MainColor.Brush" Color="{StaticResource App.MainColor}"/>
+
+    <Color x:Key="App.LightMainColor">#A4C8D2</Color>
+    <SolidColorBrush x:Key="App.LightMainColor.Brush" Color="{StaticResource App.LightMainColor}"/>
+
+    <Color x:Key="App.StrongMainColor">#09B3D2</Color>
+    <SolidColorBrush x:Key="App.StrongMainColor.Brush" Color="{StaticResource App.StrongMainColor}"/>
+    <!-- #endregion -->
+
+    <!-- #region Background -->
+    <Color x:Key="Background.LightGray.Color">#e5e5e5</Color>
+    <SolidColorBrush x:Key="BackGround.LightGray.Brush" Color="{StaticResource Background.LightGray.Color}"/>
+    
+    <Color x:Key="Background.DarkGray.Color">#343434</Color>
+    <SolidColorBrush x:Key="BackGround.DarkGray.Brush" Color="{StaticResource Background.DarkGray.Color}"/>
+    <!-- #endregion -->
+
+                     <!-- #region Background TextBox -->
+    <Color x:Key="TextBox.Background.Light.Color" R="229" G="229" B="229" A="52"/>
+    <SolidColorBrush x:Key="TextBox.Background.Light.Brush" Color="{StaticResource TextBox.Background.Light.Color}"/>
+    <!-- #endregion -->
+
+    <!-- #region Background Close Button -->
+
+    <Color x:Key="CloseButton.Background.Gray.Color">#b1b2b5</Color>
+    <SolidColorBrush x:Key="CloseButton.Background.Gray.Brush" Color="{StaticResource CloseButton.Background.Gray.Color}"/>
+
+    <Color x:Key="CloseButton.Background.Red.Color">#c44224</Color>
+    <SolidColorBrush x:Key="CloseButton.Background.Red.Brush" Color="{StaticResource CloseButton.Background.Red.Color}"/>
+
+    <Color x:Key="CloseButton.Background.DarkRed.Color">#A13521</Color>
+    <SolidColorBrush x:Key="CloseButton.Background.DarkRed.Brush" Color="{StaticResource CloseButton.Background.DarkRed.Color}"/>
+    <!-- #endregion -->
+
+</ResourceDictionary>
