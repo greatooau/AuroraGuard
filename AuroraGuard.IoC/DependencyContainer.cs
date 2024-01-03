@@ -1,6 +1,6 @@
 ﻿using AuroraGuard.DataAccess;
 using AuroraGuard.Services;
-using AuroraGuard.ViewModels;
+using AuroraGuard.UserInterface.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,10 +8,12 @@ namespace AuroraGuard.IoC;
 
 public static class DependencyContainer
 {
-	public static IServiceCollection AddAuroraGuardDependencies(this IServiceCollection services, IConfiguration configuration)
+	public static IServiceCollection AddAuroraGuardDependencies(this IServiceCollection services)
 	{
-		services.AddDataAccess(configuration);
-		services.AddAuroraGuardServices(configuration);
+		services.AddSingleton<IConfiguration>(_ => AuroraGuardConfiguration.Get());
+		
+		services.AddDataAccess();
+		services.AddAuroraGuardServices();
 		services.AddViewModels();
 		return services;
 	}
