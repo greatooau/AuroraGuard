@@ -1,22 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Core", "AuroraGuard.Core\AuroraGuard.Core.csproj", "{61752D52-4363-4AD9-B1CA-713E5E7FEB10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.Core", "AuroraGuard.Core\AuroraGuard.Core.csproj", "{61752D52-4363-4AD9-B1CA-713E5E7FEB10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.ViewModels", "AuroraGuard.ViewModels\AuroraGuard.ViewModels.csproj", "{40EE922E-37AA-4EE5-A93A-E83EF642352F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.DataAccess", "AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj", "{934BCE49-18AF-473D-AD43-FDE216935247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DataAccess", "AuroraGuard.DataAccess\AuroraGuard.DataAccess.csproj", "{934BCE49-18AF-473D-AD43-FDE216935247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.Services", "AuroraGuard.Services\AuroraGuard.Services.csproj", "{D5F94D68-8907-4C20-81B4-FADA071F0B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Services", "AuroraGuard.Services\AuroraGuard.Services.csproj", "{D5F94D68-8907-4C20-81B4-FADA071F0B7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.UserInterface.WPF", "AuroraGuard.UserInterface.WPF\AuroraGuard.UserInterface.WPF.csproj", "{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.UserInterface.WPF", "AuroraGuard.UserInterface.WPF\AuroraGuard.UserInterface.WPF.csproj", "{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.IoC", "AuroraGuard.IoC\AuroraGuard.IoC.csproj", "{2110A0CA-B917-40E3-8BC2-826A74770830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.IoC", "AuroraGuard.IoC\AuroraGuard.IoC.csproj", "{2110A0CA-B917-40E3-8BC2-826A74770830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.Tests", "AuroraGuard.Tests\AuroraGuard.Tests.csproj", "{A81C47A3-06D6-463A-B93D-00D5D08CD457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.Tests", "AuroraGuard.Tests\AuroraGuard.Tests.csproj", "{A81C47A3-06D6-463A-B93D-00D5D08CD457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuroraGuard.DatabaseSetup", "AuroraGuard.DatabaseSetup\AuroraGuard.DatabaseSetup.csproj", "{B65548A3-B7BF-4700-B084-F1DB36884F84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.DatabaseSetup", "AuroraGuard.DatabaseSetup\AuroraGuard.DatabaseSetup.csproj", "{B65548A3-B7BF-4700-B084-F1DB36884F84}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{00FB5CEC-DB64-444E-9451-E8D33FD9F1A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraGuard.UserInterface.ViewModels", "AuroraGuard.UserInterface.ViewModels\AuroraGuard.UserInterface.ViewModels.csproj", "{FF3E131A-3CB9-4C54-B446-01BBCA55E22B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +33,6 @@ Global
 		{61752D52-4363-4AD9-B1CA-713E5E7FEB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61752D52-4363-4AD9-B1CA-713E5E7FEB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61752D52-4363-4AD9-B1CA-713E5E7FEB10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40EE922E-37AA-4EE5-A93A-E83EF642352F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934BCE49-18AF-473D-AD43-FDE216935247}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,16 +50,28 @@ Global
 		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2110A0CA-B917-40E3-8BC2-826A74770830}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81C47A3-06D6-463A-B93D-00D5D08CD457}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B65548A3-B7BF-4700-B084-F1DB36884F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3E131A-3CB9-4C54-B446-01BBCA55E22B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3E131A-3CB9-4C54-B446-01BBCA55E22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3E131A-3CB9-4C54-B446-01BBCA55E22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3E131A-3CB9-4C54-B446-01BBCA55E22B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{40EE922E-37AA-4EE5-A93A-E83EF642352F} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
+		{934BCE49-18AF-473D-AD43-FDE216935247} = {00FB5CEC-DB64-444E-9451-E8D33FD9F1A2}
 		{EAD4E471-ABB4-4167-9E4E-9C8B533D8E29} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
+		{B65548A3-B7BF-4700-B084-F1DB36884F84} = {00FB5CEC-DB64-444E-9451-E8D33FD9F1A2}
+		{FF3E131A-3CB9-4C54-B446-01BBCA55E22B} = {7BD7DFF0-CC4C-4F88-9A5F-3EA7FE5919E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {852B8D8A-0232-402B-9B71-87EB4D7399A7}
 	EndGlobalSection
 EndGlobal
