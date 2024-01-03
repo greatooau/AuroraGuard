@@ -4,24 +4,20 @@ using AuroraGuard.Core.Interfaces.Repositories;
 
 namespace AuroraGuard.DataAccess;
 
-public class UnitOfWork : IAuroraGuardUnitOfWork
+public class UnitOfWork(ICredentialRepository credentialRepository, IDbTransaction transaction)
+	: IAuroraGuardUnitOfWork
 {
-	private readonly IDbTransaction _transaction;
-
-	public ICredentialRepository CredentialRepository { get; }
-
-	public UnitOfWork(ICredentialRepository credentialRepository, IDbTransaction transaction)
-		=> (_transaction, CredentialRepository) = (transaction, credentialRepository);
+	public ICredentialRepository CredentialRepository { get; } = credentialRepository;
 
 	public void SaveChanges()
 	{
 		try
 		{
-			_transaction.Commit();
+			transaction.Commit();
 		}
-		catch (Exception e)
+		catch (Exception)
 		{
-			_transaction.Rollback();
+			transaction.Rollback();
 		}
 	}
 }

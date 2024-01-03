@@ -5,17 +5,9 @@ using AuroraGuard.Core.Models;
 
 namespace AuroraGuard.DataAccess.Repositories.Credentials;
 
-public class CredentialRepository : ICredentialRepository
+public class CredentialRepository(IDbTransaction transaction, IDapperRepository dapperRepository)
+	: ICredentialRepository
 {
-	private readonly IDbTransaction _transaction;
-	private readonly IDapperRepository _dapperRepository;
-
-	public CredentialRepository(IDbTransaction transaction, IDapperRepository dapperRepository)
-	{
-		_transaction = transaction;
-		_dapperRepository = dapperRepository;
-	}
-
 	public async Task<Credential> Create(CreateCredentialDto createCredentialDto)
 	{
 		const string sql = @"
@@ -24,9 +16,9 @@ public class CredentialRepository : ICredentialRepository
 
 		var param = CredentialRepositoryHelper.GenerateCreateParam(createCredentialDto);
 		
-		await _dapperRepository.ExecuteAsync(sql, param, _transaction);
+		await dapperRepository.ExecuteAsync(sql, param, transaction);
 		
-		_transaction.Commit();
+		transaction.Commit();
 		
 		return (Credential)param;
 	}
@@ -37,6 +29,6 @@ public class CredentialRepository : ICredentialRepository
 
 		var param = CredentialRepositoryHelper.GenerateGetByIdParam(id);
 		
-		return _dapperRepository.QuerySingleAsync<Credential>(sql, param);
+		return dapperRepository.QuerySingleAsync<Credential>(sql, param);
 	}
 }
