@@ -10,10 +10,12 @@ public static class Program
 	{
 		var configuration = AuroraGuardConfiguration.Get();
 		var dbName = configuration.GetConnectionString("aurora-guard");
+		var appDirectory = configuration["app-directory"];
 
 		if (dbName is null) throw new Exception("Connection string has not been set already");
+		if (appDirectory is null) throw new Exception("App directory must not ve empty");
 
-		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), dbName);
+		var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appDirectory, dbName);
 
 		if (File.Exists(filePath))
 		{
