@@ -2,7 +2,8 @@
 
 public interface INavigationService
 {
-	void NavigateTo<T>() where T : class;
-	void GoBack();
-	void GoForward();
+    void NavigateTo<TViewModel>() where TViewModel : class;
+    public void NavigateTo<TOriginWindow, TDestinationWindow>() 
+        where TOriginWindow : class
+        where TDestinationWindow : class;
 }
