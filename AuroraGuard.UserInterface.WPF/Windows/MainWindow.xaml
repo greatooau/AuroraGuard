@@ -35,7 +35,7 @@
                             <!-- Main window outline -->
                             <Grid Background="White" Panel.ZIndex="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=20}"/>
+                                    <RowDefinition Height="{Binding TitleHeight, FallbackValue=20}"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using AuroraGuard.Core.Abstract;
+using AuroraGuard.Core.Enum;
+using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.UserInterface.ViewModels.Auth;
 using AuroraGuard.UserInterface.ViewModels.Main;
@@ -27,7 +29,15 @@ internal static class DependencyContainer
 		services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => 
 			viewModelType => (ViewModel)serviceProvider.GetService(viewModelType)!);
 
-		services.AddTransient<WindowResolver>(serviceProvider => window => window! switch
+        services.AddTransient<Func<WindowType, IShowDialog>>(sp =>
+            windowType => windowType switch
+            {
+                WindowType.AuthWindow => sp.GetService<AuthWindow>()!,
+				WindowType.MainWindow => sp.GetService<MainWindow>()!,
+                _ => throw new ArgumentOutOfRangeException(nameof(windowType), windowType, null)
+            });
+
+		services.AddTransient<WindowResolver>(serviceProvider => window => window switch
 		{
 			nameof(AuthWindow) => serviceProvider.GetService<AuthWindow>(),
 			nameof(MainWindow) => serviceProvider.GetService<MainWindow>(),

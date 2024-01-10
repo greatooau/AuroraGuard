@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using AuroraGuard.IoC;
+using Autofac;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuroraGuard.UserInterface.WPF;

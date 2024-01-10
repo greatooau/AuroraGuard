@@ -3,11 +3,9 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <!--region Font sizes-->
-    <system:Double x:Key="FontSize.Small">16</system:Double>
-    <system:Double x:Key="FontSize.Average">17</system:Double>
-    <system:Double x:Key="FontSize.Regular">20</system:Double>
-    <system:Double x:Key="FontSize.Large">30</system:Double>
+    <system:Double x:Key="FontSize.Small">10</system:Double>
     <system:Double x:Key="FontSize.Normal">14</system:Double>
+    <system:Double x:Key="FontSize.Large">30</system:Double>
     <!--endregion-->
 
     <!--region Font families-->

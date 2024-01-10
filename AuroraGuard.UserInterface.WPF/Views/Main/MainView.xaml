@@ -3,50 +3,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:main="clr-namespace:AuroraGuard.UserInterface.WPF.Views.Main"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:main1="clr-namespace:AuroraGuard.UserInterface.ViewModels.Main;assembly=AuroraGuard.UserInterface.ViewModels"
              xmlns:design="clr-namespace:AuroraGuard.UserInterface.ViewModels.Main.Design;assembly=AuroraGuard.UserInterface.ViewModels"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             x:Name="ThisView"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="400" d:DesignWidth="600">
-    <Grid DataContext="{x:Static design:MainViewDesignModel.Instance}">
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="Loaded">
+            <behaviors:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
+    
+    <Grid d:DataContext="{x:Static design:MainViewDesignModel.Instance}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        
-        <ListView Grid.Column="0" ItemsSource="{Binding Instance.Credentials}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="4*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <Image Grid.Column="0"
-                               Source="{Binding E, TargetNullValue={StaticResource ImageBbva}, FallbackValue={StaticResource ImageBbva} }"/>
-                        
-                        <Border x:Name="border" 
-                                Grid.Column="1" 
-                                Padding="10 0" 
-                                Background="{StaticResource BackGround.LightGray.Brush}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding AppName}"/>
-                                <TextBlock Text="{Binding CreationDate}"/>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                    
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        
+
+
+        <DockPanel LastChildFill="True">
+            <Button DockPanel.Dock="Bottom" 
+                    Style="{StaticResource TextButton}"
+                    Command="{Binding AddCredentialCommand}"
+                    CommandParameter="{Binding ElementName=ThisView}"
+                    Content="Nuevo"
+                    Height="30"/>
+            <ListView
+                DockPanel.Dock="Top"
+                d:ItemsSource="{Binding CredentialList}"
+                ItemsSource="{Binding CredentialList}"
+                ItemContainerStyle="{StaticResource CredentialItem}"
+                BorderThickness="0"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedCredential, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                Margin="0"
+                Padding="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding ImagePath, 
+                            TargetNullValue={StaticResource DefaultImage}, 
+                            FallbackValue={StaticResource DefaultImage}}"
+                                   Width="50"
+                                   Height="50"/>
+
+                            <Border Grid.Column="1" x:Name="border"
+                                    Padding="5 0 0 0">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding AppName}"/>
+                                    <TextBlock Text="{Binding CreationDate}" FontSize="{StaticResource FontSize.Small}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectionChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding DisplayItemCommand}"/>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </ListView>
+        </DockPanel>
+
         <Border Grid.Column="1" Width="2" Background="{StaticResource BackGround.LightGray.Brush}"></Border>
-        
-        <StackPanel Grid.Column="2">
+
+        <StackPanel Grid.Column="2" Background="White" DataContext="{Binding DisplayedCredential}">
             <TextBlock Text="{Binding AppName}" TextAlignment="Center" FontSize="{StaticResource FontSize.Large}"></TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -62,13 +90,13 @@
                 <StackPanel Grid.Column="0" 
                     Grid.Row="0" >
                     <TextBlock Text="Usuario"/>
-                    <TextBlock Text="{Binding UserName}"/>
+                    <TextBlock Text="{Binding Username}"/>
                 </StackPanel>
                 
                 <StackPanel Grid.Column="0" 
                             Grid.Row="1" >
                     <TextBlock Text="Contraseña"></TextBlock>
-                    <TextBlock Text="{Binding UserName}"/>
+                    <TextBlock Text="{Binding Password}"/>
                 </StackPanel>
                 
                 <StackPanel Grid.Column="1" 
@@ -83,8 +111,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
-                <Button Grid.Column="0" Margin="10" Padding="5" Content="Borrar"/>
+
+                <Button Grid.Column="0" Margin="10" Padding="5" Content="Borrar" Command="{Binding DeleteCommand}"/>
                 <Button Grid.Column="1" Margin="10" Padding="5" Content="Actualizar"/>
             </Grid>
         </StackPanel>

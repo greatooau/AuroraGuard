@@ -17,6 +17,9 @@
     
     <Color x:Key="Background.DarkGray.Color">#343434</Color>
     <SolidColorBrush x:Key="BackGround.DarkGray.Brush" Color="{StaticResource Background.DarkGray.Color}"/>
+    
+    <Color x:Key="Background.LessDarkGray.Color">#505050</Color>
+    <SolidColorBrush x:Key="BackGround.LessDarkGray.Brush" Color="{StaticResource Background.LessDarkGray.Color}"/>
     <!-- #endregion -->
 
                      <!-- #region Background TextBox -->
