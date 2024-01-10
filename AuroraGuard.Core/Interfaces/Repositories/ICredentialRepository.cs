@@ -7,4 +7,7 @@ public interface ICredentialRepository
 {
 	Task<Credential> Create(CreateCredentialDto createCredentialDto);
 	Task<Credential> GetById(Guid id);
+	Task<IEnumerable<Credential>> GetAll();
+    Task Update(Guid id, UpdateCredentialDto dto);
+    Task Delete(Guid id);
 }

@@ -2,9 +2,12 @@
 
 public class Credential
 {
-	public string Id { get; set; } = null!;
+	public Guid Id { get; set; }
 	public string AccessUser { get; set; } = null!;
 	public string AccessPassword { get; set; } = null!;
-	public DateTime ModifiedAt { get; set; }
-	public DateTime CreatedAt { get; set; }
+	public string AppName { get; set; } = null!;
+	public string? ImagePath { get; set; } = null!;
+	public string? Notes { get; set; }
+	public DateTime UpdatedAt { get; init; }
+	public DateTime CreatedAt { get; init; }
 }

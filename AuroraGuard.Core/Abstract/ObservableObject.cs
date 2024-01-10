@@ -11,7 +11,7 @@ public class ObservableObject : INotifyPropertyChanged
     /// It will notify that the <see cref="propertyName"/> value has changed
     /// </summary>
     /// <param name="propertyName">The name of the property from which will be notified to the UI</param>
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

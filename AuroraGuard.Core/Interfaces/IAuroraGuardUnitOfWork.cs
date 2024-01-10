@@ -2,7 +2,3 @@
 
 namespace AuroraGuard.Core.Interfaces;
 
-public interface IAuroraGuardUnitOfWork : IUnitOfWork
-{
-	ICredentialRepository CredentialRepository { get; }
-}

@@ -1,6 +1,13 @@
-﻿namespace AuroraGuard.Core.Interfaces;
+﻿using System.Data;
 
-public interface IUnitOfWork
+namespace AuroraGuard.Core.Interfaces;
+
+public interface IUnitOfWork : IDisposable
 {
-	void SaveChanges();
+    Guid Id { get; }
+    IDbConnection Connection { get; }
+    IDbTransaction Transaction { get; }
+    void Begin();
+    void Commit();
+    void Rollback();
 }
