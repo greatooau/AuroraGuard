@@ -1,8 +1,9 @@
 ﻿namespace AuroraGuard.UserInterface.ViewModels.Main;
 
-public class CredentialItemViewModel(DateTime creationDate, string type, string appName)
+public class CredentialItemViewModel(string id, string? imagePath, string appName, DateTime creationDate)
 {
-	public string CreationDate { get;  } = creationDate.ToString("d/M/yyyy hh:mm");
-	public string Type { get;  } = type;
-	public string AppName { get;  } = appName;
+	public string Id { get; } = id;
+	public string? ImagePath { get; } = imagePath;
+	public string AppName { get; } = appName;
+	public string CreationDate { get; } = creationDate.ToString("dd/MM/yyyy hh:mm tt");
 }

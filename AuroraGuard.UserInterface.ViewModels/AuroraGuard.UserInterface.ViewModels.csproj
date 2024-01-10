@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <Folder Include="Auth\Design\" />
+      <Folder Include="EventArgsTypes\" />
     </ItemGroup>
 
     <ItemGroup>
