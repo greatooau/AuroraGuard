@@ -9,13 +9,28 @@ public static class CredentialRepositoryHelper
 	{
 		return new Credential
 		{
-			Id = createCredentialDto.Id.ToString(),
+			Id = createCredentialDto.Id,
 			AccessUser = createCredentialDto.AccessUser,
 			AccessPassword = createCredentialDto.AccessPassword,
+			AppName = createCredentialDto.AppName,
+			ImagePath = createCredentialDto.ImagePath,
 			CreatedAt = DateTime.Now,
-			ModifiedAt = DateTime.Now
+			UpdatedAt = DateTime.Now
 		};
 	}
 
-	public static object GenerateGetByIdParam(Guid id) => new { Id = id.ToString() };
+	public static object GenerateGetByIdParam(Guid id) => new { Id = id };
+
+    public static object GenerateUpdateParam(Guid id, UpdateCredentialDto updateCredentialDto)
+    {
+        return new 
+        {
+            Id = id,
+            updateCredentialDto.AccessUser,
+            updateCredentialDto.AccessPassword,
+            updateCredentialDto.AppName,
+            updateCredentialDto.ImagePath,
+            UpdatedAt = DateTime.Now
+        };
+    }
 }
