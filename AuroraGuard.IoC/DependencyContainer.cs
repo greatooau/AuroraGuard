@@ -10,7 +10,7 @@ public static class DependencyContainer
 {
 	public static IServiceCollection AddAuroraGuardDependencies(this IServiceCollection services)
 	{
-		services.AddSingleton<IConfiguration>(_ => AuroraGuardConfiguration.Get());
+		services.AddSingleton(_ => AuroraGuardConfiguration.Get());
 		
 		services.AddDataAccess();
 		services.AddAuroraGuardServices();

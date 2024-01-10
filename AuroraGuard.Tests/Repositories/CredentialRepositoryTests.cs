@@ -15,7 +15,7 @@ public class CredentialRepositoryTests
 	public CredentialRepositoryTests() => _sut = new CredentialRepository(_dbTransaction, _dapperRepository);
 
 	[Fact]
-	public async void Create_ExecuteAndCommit()
+	public async Task Create_ExecuteAndCommit()
 	{
 		// Arrange
 		var createCredentialDto = new CreateCredentialDto
@@ -35,7 +35,7 @@ public class CredentialRepositoryTests
 
 
 	[Fact]
-	public async void GetById_ShouldReturnObjectAndCallQuerySingleAsync()
+	public async Task GetById_ShouldReturnObjectAndCallQuerySingleAsync()
 	{
 		// Arrange
 		var id = Guid.NewGuid();
@@ -45,18 +45,18 @@ public class CredentialRepositoryTests
 			.QuerySingleAsync<Credential>(Arg.Any<string>(), param)
 			.Returns(new Credential
 			{
-				Id = id.ToString(),
+				Id = id,
 				AccessUser = "Aurora",
 				AccessPassword = "Tyler",
 				CreatedAt = DateTime.Now,
-				ModifiedAt = DateTime.Now
+				UpdatedAt = DateTime.Now
 			});
 
 		// Act
 		var credential = await _sut.GetById(id);
 
 		// Assert
-		Assert.Equal(id.ToString(), credential.Id);
+		Assert.Equal(id, credential.Id);
 		await _dapperRepository.Received().QuerySingleAsync<Credential>(Arg.Any<string>(), param);
 	}
 }
