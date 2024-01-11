@@ -13,6 +13,7 @@ public static class CredentialRepositoryHelper
 			AccessUser = createCredentialDto.AccessUser,
 			AccessPassword = createCredentialDto.AccessPassword,
 			AppName = createCredentialDto.AppName,
+			Notes = createCredentialDto.Notes,
 			ImagePath = createCredentialDto.ImagePath,
 			CreatedAt = DateTime.Now,
 			UpdatedAt = DateTime.Now
@@ -30,6 +31,7 @@ public static class CredentialRepositoryHelper
             updateCredentialDto.AccessPassword,
             updateCredentialDto.AppName,
             updateCredentialDto.ImagePath,
+			updateCredentialDto.Notes,
             UpdatedAt = DateTime.Now
         };
     }

@@ -10,12 +10,13 @@ public class CredentialRepository(IDbConnection connection, IDapperRepository da
 	public async Task<Credential> Create(CreateCredentialDto createCredentialDto)
 	{
 		const string sql = """
-                           INSERT INTO Credentials (Id, AccessUser, AccessPassword, AppName, ImagePath, CreatedAt, UpdatedAt)
-                           VALUES (@Id, @AccessUser, @AccessPassword, @AppName, @ImagePath, @CreatedAt, @UpdatedAt)
+                           INSERT INTO Credentials (Id, AccessUser, AccessPassword, AppName, ImagePath, Notes, CreatedAt, UpdatedAt)
+                           VALUES (@Id, @AccessUser, @AccessPassword, @AppName, @ImagePath, @Notes, @CreatedAt, @UpdatedAt)
                            """;
         
 		var param = CredentialRepositoryHelper.GenerateCreateParam(createCredentialDto);
-
+        
+        connection.Open();
         using var transaction = connection.BeginTransaction();
 
         try
@@ -57,10 +58,12 @@ public class CredentialRepository(IDbConnection connection, IDapperRepository da
                              AccessPassword = @AccessPassword,
                              AppName = @AppName,
                              ImagePath = @ImagePath,
-                             UpdatedAt = @UpdatedAt
+                             UpdatedAt = @UpdatedAt,
+                             Notes = @Notes
                            WHERE Id = @Id
                            """;
 
+        connection.Open();
         using var transaction = connection.BeginTransaction();
 
         var @params = CredentialRepositoryHelper.GenerateUpdateParam(id, dto);
@@ -85,6 +88,7 @@ public class CredentialRepository(IDbConnection connection, IDapperRepository da
     {
         const string sql = "DELETE FROM Credentials WHERE Id = @Id";
 
+        connection.Open();
         using var transaction = connection.BeginTransaction();
 
         try

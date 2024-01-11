@@ -23,7 +23,6 @@ public static class DependencyContainer
         {
             var configuration = serviceProvider.GetService<IConfiguration>()!;
             var connection = GetConnection(configuration);
-            connection.Open();
             return connection;
         });
 
