@@ -6,4 +6,5 @@ public class UpdateCredentialDto
     public string AccessPassword { get; set; } = null!;
     public string AppName { get; set; } = null!;
     public string? ImagePath { get; set; } = null!;
+    public string? Notes { get; set; }
 }
