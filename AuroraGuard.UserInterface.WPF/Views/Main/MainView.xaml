@@ -112,8 +112,19 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Margin="10" Padding="5" Content="Borrar" Command="{Binding DeleteCommand}"/>
-                <Button Grid.Column="1" Margin="10" Padding="5" Content="Actualizar"/>
+                <Button Style="{StaticResource TextButton}" 
+                        Grid.Column="0" 
+                        Margin="10" 
+                        Padding="5" 
+                        Content="Borrar" 
+                        Command="{Binding DeleteCommand}"/>
+                <Button Style="{StaticResource TextButton}" 
+                        Grid.Column="1" 
+                        Margin="10" 
+                        Padding="5" 
+                        Content="Editar" 
+                        Command="{Binding EditCredentialCommand}"
+                        CommandParameter="{Binding ElementName=ThisView}"/>
             </Grid>
         </StackPanel>
     </Grid>

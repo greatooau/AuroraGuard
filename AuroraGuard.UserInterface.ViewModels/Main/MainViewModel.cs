@@ -1,12 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using AuroraGuard.Core.Abstract;
-using AuroraGuard.Core.DTO.Credentials;
-using AuroraGuard.Core.Enum;
 using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Interfaces.Services;
-using AuroraGuard.Core.Models;
 using AuroraGuard.UserInterface.ViewModels.EventArgsTypes;
 
 namespace AuroraGuard.UserInterface.ViewModels.Main;
@@ -14,14 +11,11 @@ namespace AuroraGuard.UserInterface.ViewModels.Main;
 public class MainViewModel : ViewModel
 {
 	private readonly ICredentialRepository _credentialRepository;
-    private readonly Func<WindowType, IShowDialog> _windowResolver;
     private readonly IDialogService _dialogService;
-    private List<Credential>? Credentials { get; set; }
 
-	public MainViewModel(ICredentialRepository credentialRepository, Func<WindowType, IShowDialog> windowResolver, IDialogService dialogService)
+	public MainViewModel(ICredentialRepository credentialRepository, IDialogService dialogService)
 	{
 		_credentialRepository = credentialRepository;
-        _windowResolver = windowResolver;
         _dialogService = dialogService;
 
         DisplayItemCommand = new AsyncRelayCommand(DisplaySelectedItem);
@@ -79,10 +73,10 @@ public class MainViewModel : ViewModel
 
     private async Task LoadAsync(object? parameter, CancellationToken cancellationToken)
     {
-        var credentials = await _credentialRepository.GetAll();
-        Credentials = credentials.ToList();
+        var credentialsEnumerable = await _credentialRepository.GetAll();
+        var credentials = credentialsEnumerable.ToList();
 
-        var credentialViewModels = Credentials
+        var credentialViewModels = credentials
             .Select(credential => new CredentialItemViewModel(credential.Id.ToString(), credential.ImagePath, credential.AppName, credential.CreatedAt))
             .ToList();
 
@@ -116,6 +110,28 @@ public class MainViewModel : ViewModel
         };
         
         DisplayedCredential.CredentialDeleted += DisplayedCredentialOnCredentialDeleted;
+        DisplayedCredential.CredentialEdited += DisplayedCredential_CredentialEdited;
+    }
+
+    private void DisplayedCredential_CredentialEdited(object? sender, AlteredItemEventArgs e)
+    {
+        var oldCredentialItem = CredentialList!.Single(c => c.Id == e.Id.ToString());
+        var index = CredentialList!.IndexOf(oldCredentialItem);
+
+        DisplayedCredential!.CredentialEdited -= DisplayedCredential_CredentialEdited;
+
+        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService)
+        {
+            Id = e.Id,
+            AppName = e.Credential.AppName,
+            Notes = e.Credential.Notes,
+            Password = e.Credential.AccessPassword,
+            Username = e.Credential.AccessUser
+        };
+
+        DisplayedCredential.CredentialEdited += DisplayedCredential_CredentialEdited;
+
+        CredentialList[index] = new CredentialItemViewModel(e.Id.ToString(), e.Credential.ImagePath, e.Credential.AppName, e.Credential.CreatedAt);
     }
 
     private void DisplayedCredentialOnCredentialDeleted(object? sender, AlteredItemEventArgs e)
@@ -135,7 +151,7 @@ public class MainViewModel : ViewModel
 
     public void AddCredential(object? parameter)
     {
-        var handler = (IHandleCredentialCreation)parameter!;
+        var handler = (IHandleCredentialCreationEdition)parameter!;
 
         var createdCredential = handler.CreateCredential(_credentialRepository);
 

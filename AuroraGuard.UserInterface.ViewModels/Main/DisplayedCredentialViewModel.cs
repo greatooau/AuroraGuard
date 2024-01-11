@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using AuroraGuard.Core.Abstract;
+using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.UserInterface.ViewModels.EventArgsTypes;
@@ -15,8 +16,8 @@ public class DisplayedCredentialViewModel : ViewModel
     {
         _credentialRepository = credentialRepository;
         _dialogService = dialogService;
-        EditCommand = new RelayCommand(Edit);
         DeleteCommand = new AsyncRelayCommand(Delete);
+        EditCredentialCommand = new AsyncRelayCommand(EditCredential);
     }
 
     private string? _appName;
@@ -68,11 +69,18 @@ public class DisplayedCredentialViewModel : ViewModel
     }
     public event EventHandler<AlteredItemEventArgs>? CredentialDeleted;
 
-
-    public ICommand EditCommand { get; set; }
-    private void Edit(object? parameter)
+    public ICommand EditCredentialCommand { get; }
+    public async Task EditCredential(object? parameter, CancellationToken token)
     {
+        var handler = (IHandleCredentialCreationEdition)parameter!;
 
+        var selectedCredential = await _credentialRepository.GetById(Id);
+
+        handler.EditCredential(_credentialRepository, selectedCredential);
+        
+        selectedCredential = await _credentialRepository.GetById(Id);
+
+        CredentialEdited?.Invoke(this, new AlteredItemEventArgs { Credential = selectedCredential, Id  = Id});
     }
-    public event EventHandler? CredentialUpdated;
+    public event EventHandler<AlteredItemEventArgs>? CredentialEdited;
 }

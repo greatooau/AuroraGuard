@@ -6,13 +6,12 @@ using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Models;
 using AuroraGuard.UserInterface.ViewModels.Main;
 using AuroraGuard.UserInterface.WPF.Windows;
-using Microsoft.Win32;
 
 namespace AuroraGuard.UserInterface.WPF.Views.Main;
 /// <summary>
 /// Interaction logic for MainView.xaml
 /// </summary>
-public partial class MainView : UserControl, IHandleCredentialCreation
+public partial class MainView : UserControl, IHandleCredentialCreationEdition
 {
     public MainView()
     {
@@ -22,9 +21,9 @@ public partial class MainView : UserControl, IHandleCredentialCreation
     public Credential? CreateCredential(ICredentialRepository credentialRepository)
     {
         var mainWindow = Application.Current.MainWindow!;
-        CreateCredentialWindowViewModel viewModel = new(credentialRepository);
+        CreateEditCredentialWindowViewModel viewModel = new(credentialRepository);
         
-        var createCredentialWindow = new CreateCredentialWindow
+        var createCredentialWindow = new CreateOrEditCredentialWindow
         {
             Owner = mainWindow,
             DataContext = viewModel
@@ -33,5 +32,30 @@ public partial class MainView : UserControl, IHandleCredentialCreation
         createCredentialWindow.ShowDialog();
 
         return viewModel.CreatedCredential;
+    }
+
+    public void EditCredential(ICredentialRepository credentialRepository, Credential credential)
+    {
+        var mainWindow = Application.Current.MainWindow!;
+        
+        CreateEditCredentialWindowViewModel viewModel = new(credentialRepository)
+        {
+            Id = credential.Id,
+            AppName = credential.AppName,
+            Notes = credential.Notes,
+            Username = credential.AccessUser,
+            Password = credential.AccessPassword,
+            ImagePath = credential.ImagePath,
+            IsEdition = true,
+            OriginalCredential = credential
+        };
+
+        var editCredentialWindow = new CreateOrEditCredentialWindow
+        {
+            Owner = mainWindow,
+            DataContext = viewModel
+        };
+
+        editCredentialWindow.ShowDialog();
     }
 }
