@@ -1,7 +1,6 @@
 ﻿using AuroraGuard.DataAccess;
 using AuroraGuard.Services;
 using AuroraGuard.UserInterface.ViewModels;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuroraGuard.IoC;

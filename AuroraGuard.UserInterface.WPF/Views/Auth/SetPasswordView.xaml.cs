@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using AuroraGuard.Core.Interfaces;
-using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.UserInterface.ViewModels.Auth;
 using AuroraGuard.UserInterface.ViewModels.Main;
 using AuroraGuard.UserInterface.WPF.Windows;

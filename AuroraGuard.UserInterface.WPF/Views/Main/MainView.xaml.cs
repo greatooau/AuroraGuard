@@ -1,15 +1,11 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using AuroraGuard.Core.Abstract;
 using AuroraGuard.Core.Interfaces;
-using AuroraGuard.Core.Interfaces.Repositories;
-using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.Core.Models;
 using AuroraGuard.IoC;
 using AuroraGuard.UserInterface.ViewModels.Main;
 using AuroraGuard.UserInterface.WPF.Windows;
-using Microsoft.Extensions.Configuration;
 
 namespace AuroraGuard.UserInterface.WPF.Views.Main;
 /// <summary>

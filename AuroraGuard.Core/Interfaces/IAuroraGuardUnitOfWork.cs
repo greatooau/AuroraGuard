@@ -1,4 +1,2 @@
-﻿using AuroraGuard.Core.Interfaces.Repositories;
-
-namespace AuroraGuard.Core.Interfaces;
+﻿namespace AuroraGuard.Core.Interfaces;
 

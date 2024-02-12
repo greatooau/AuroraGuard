@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace AuroraGuard.Core.Interfaces;
+﻿namespace AuroraGuard.Core.Interfaces;
 
 public interface ISelectedEventArgs
 {

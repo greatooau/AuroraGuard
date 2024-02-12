@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.DataAccess.Repositories;
 using AuroraGuard.DataAccess.Repositories.Credentials;

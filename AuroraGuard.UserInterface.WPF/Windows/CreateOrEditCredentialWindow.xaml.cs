@@ -1,16 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Runtime.Intrinsics.X86;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows;
 using AuroraGuard.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Win32;
 
 namespace AuroraGuard.UserInterface.WPF.Windows;
 

@@ -1,9 +1,6 @@
-﻿using AuroraGuard.Core.Interfaces;
-using AuroraGuard.Core.Interfaces.Services;
+﻿using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.Tests.ViewModels.HelperClasses;
 using AuroraGuard.UserInterface.ViewModels.Auth;
-using AuroraGuard.UserInterface.WPF.Services;
-using AuroraGuard.UserInterface.WPF.Windows;
 
 namespace AuroraGuard.Tests.ViewModels;
 

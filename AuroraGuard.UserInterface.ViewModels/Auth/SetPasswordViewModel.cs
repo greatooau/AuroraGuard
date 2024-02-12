@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using AuroraGuard.Core.Abstract;
+﻿using AuroraGuard.Core.Abstract;
 using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Services;
 

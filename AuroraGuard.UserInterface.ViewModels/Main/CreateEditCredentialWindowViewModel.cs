@@ -13,6 +13,7 @@ public class CreateEditCredentialWindowViewModel : ViewModel
     private readonly ICredentialRepository _credentialRepository;
     private readonly IEncryptionService _encryptionService;
     private readonly IDialogService _dialogService;
+    private readonly IFileService _fileService;
     private readonly IAppService _appService;
 
     public CreateEditCredentialWindowViewModel(ICredentialRepository credentialRepository,
@@ -24,6 +25,7 @@ public class CreateEditCredentialWindowViewModel : ViewModel
         _credentialRepository = credentialRepository;
         _encryptionService = encryptionService;
         _dialogService = dialogService;
+        _fileService = fileService;
         _appService = appService;
 
         CreateCredentialCommand = new AsyncRelayCommand(CreateCredential, CanExecuteCreateCredential);
@@ -163,8 +165,8 @@ public class CreateEditCredentialWindowViewModel : ViewModel
 
         await _credentialRepository.Update(Id, dto);
         
-        if (newImagePath is null && OriginalCredential?.ImagePath is not null) 
-            File.Delete(OriginalCredential.ImagePath);
+        if (newImagePath is null && OriginalCredential?.ImagePath is not null)
+            _fileService.Delete(OriginalCredential.ImagePath);
 
         var window = (IClosableWindow)parameter!;
         window.Close();
@@ -235,7 +237,7 @@ public class CreateEditCredentialWindowViewModel : ViewModel
 
         if (newPath == originalPath) return originalPath;
 
-        File.Copy(originalPath, newPath, true);
+        _fileService.Copy(originalPath, newPath);
 
         return newPath;
     }

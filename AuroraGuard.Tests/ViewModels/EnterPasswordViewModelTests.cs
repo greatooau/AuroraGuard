@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using AuroraGuard.Core.Interfaces;
+﻿using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Services;
 using AuroraGuard.Tests.ViewModels.HelperClasses;
 using AuroraGuard.UserInterface.ViewModels.Auth;

@@ -1,5 +1,4 @@
 ﻿using AuroraGuard.Core.DTO.Credentials;
-using AuroraGuard.Core.Models;
 
 namespace AuroraGuard.DataAccess.Repositories.Credentials;
 
