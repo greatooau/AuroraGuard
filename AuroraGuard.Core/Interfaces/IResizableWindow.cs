@@ -1,7 +1,9 @@
-﻿namespace AuroraGuard.Core.Interfaces;
+﻿using AuroraGuard.Core.Enum;
+
+namespace AuroraGuard.Core.Interfaces;
 
 public interface IResizableWindow : IClosableWindow
 {
-	void MaximizeRestore();
+	WindowCurrentState MaximizeRestore();
 	void Minimize();
 }

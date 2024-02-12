@@ -1,10 +1,10 @@
-﻿using AuroraGuard.Core.Interfaces.Repositories;
+﻿using AuroraGuard.Core.Abstract;
 using AuroraGuard.Core.Models;
 
 namespace AuroraGuard.Core.Interfaces;
 
 public interface IHandleCredentialCreationEdition
 {
-    Credential? CreateCredential(ICredentialRepository credentialRepository);
-    void EditCredential(ICredentialRepository credentialRepository, Credential credential);
+    Credential? CreateCredential(ViewModel viewModel);
+    bool EditCredential(ViewModel viewModel);
 }
