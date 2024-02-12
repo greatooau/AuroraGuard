@@ -49,7 +49,6 @@ public class AuthService(IFileService fileService, IConfiguration configuration)
 	public bool WasMasterPasswordSet()
 	{
 		var filePath = GetPasswordFilePath();
-		
 		if (filePath is null) return false;
 		
 		byte[] hashSaltBytes;
@@ -59,6 +58,7 @@ public class AuthService(IFileService fileService, IConfiguration configuration)
 		}
 		catch (Exception)
 		{
+
 			return false;
 		}
 
