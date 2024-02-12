@@ -14,7 +14,6 @@
         x:Name="ThisWindow"
         Title="Password Manager"
         Height="400" Width="600">
-    
     <WindowChrome.WindowChrome>
         <WindowChrome 
             ResizeBorderThickness="{Binding ResizeBorderThickness, FallbackValue=10}"
@@ -48,15 +47,26 @@
                                                 Command="{Binding MinimizeWindowCommand}"
                                                 CommandParameter="{Binding ElementName=ThisWindow}"
                                                 HorizontalAlignment="Right"
-                                                Content="{StaticResource Icon.Button.Close}"
-                                                Style="{StaticResource CloseButton}"/>
+                                                Content="{StaticResource Icon.Button.Minimize}"
+                                                Style="{StaticResource TitleButton}"/>
                                             <Button 
                                                 Width="25"
                                                 Command="{Binding MaximizeRestoreWindowCommand}"
                                                 CommandParameter="{Binding ElementName=ThisWindow}"
-                                                HorizontalAlignment="Right"
-                                                Content="{StaticResource Icon.Button.Close}"
-                                                Style="{StaticResource CloseButton}"/>
+                                                HorizontalAlignment="Right">
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TitleButton}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMaximized}" Value="true">
+                                                                <Setter Property="Content" Value="{StaticResource Icon.Button.Restore}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsMaximized}" Value="false">
+                                                                <Setter Property="Content" Value="{StaticResource Icon.Button.Maximize}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
                                             <Button 
                                                 Width="25"
                                                 Command="{Binding CloseWindowCommand}"

@@ -11,6 +11,9 @@
     <SolidColorBrush x:Key="App.StrongMainColor.Brush" Color="{StaticResource App.StrongMainColor}"/>
     <!-- #endregion -->
 
+    <Color x:Key="App.SecondaryColor">#033675</Color>
+    <SolidColorBrush x:Key="App.SecondaryColor.Brush" Color="{StaticResource App.SecondaryColor}"/>
+
     <!-- #region Background -->
     <Color x:Key="Background.LightGray.Color">#e5e5e5</Color>
     <SolidColorBrush x:Key="BackGround.LightGray.Brush" Color="{StaticResource Background.LightGray.Color}"/>

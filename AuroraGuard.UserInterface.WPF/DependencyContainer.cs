@@ -9,13 +9,15 @@ using AuroraGuard.UserInterface.WPF.Delegates;
 using AuroraGuard.UserInterface.WPF.Services;
 using AuroraGuard.UserInterface.WPF.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Win32;
 
 namespace AuroraGuard.UserInterface.WPF;
 
 internal static class DependencyContainer
 {
 	internal static IServiceCollection AddUiDependencies(this IServiceCollection services)
-	{
+    {
+        services.AddTransient<OpenFileDialog>();
 		services.AddSingleton(serviceProvider => new AuthWindow
 		{
 			DataContext = serviceProvider.GetService<AuthWindowViewModel>()

@@ -5,6 +5,7 @@
         <TargetFramework>net8.0-windows7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Images\icon-aurora-guard.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +14,7 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
       <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.5.0" />
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+      <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,7 +29,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Fonts\FontAwesome\Font Awesome 6 Free-Regular-400.otf" />
+      <None Remove="Fonts\FontAwesome\Font Awesome 6 Free-Solid-900.otf" />
       <None Remove="Fonts\NotoSans\NotoSans-Bold.ttf" />
+      <None Remove="Images\happy.png" />
+      <None Remove="Images\icon-aurora-guard.png" />
+      <None Remove="Images\sad.png" />
+      <Resource Include="Fonts\FontAwesome\Font Awesome 6 Free-Regular-400.otf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Fonts\FontAwesome\Font Awesome 6 Free-Solid-900.otf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Fonts\NotoSans\NotoSans-Bold.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -64,7 +77,17 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="Images\icon-pass.png" />
+      <Content Include="Images\icon-aurora-guard.ico" />
+      <Resource Include="Images\happy.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Images\icon-aurora-guard.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Images\icon-pass.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Images\sad.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
@@ -95,10 +118,6 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controls\" />
     </ItemGroup>
 
 </Project>

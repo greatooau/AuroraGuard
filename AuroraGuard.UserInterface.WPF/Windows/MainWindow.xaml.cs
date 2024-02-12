@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using AuroraGuard.Core.Enum;
 using AuroraGuard.Core.Interfaces;
 using AuroraGuard.UserInterface.WPF.Helpers;
 namespace AuroraGuard.UserInterface.WPF.Windows;
@@ -10,7 +10,7 @@ public partial class MainWindow : IResizableWindow, IShowDialog
 		InitializeComponent();
 	}
 
-	public void MaximizeRestore() => this.DoMaximizeRestore();
+	public WindowCurrentState MaximizeRestore() => this.DoMaximizeRestore();
 
 	public void Minimize() => this.DoMinimize();
 }

@@ -1,5 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="Icon.Button.Close">&#x58;</system:String>
+    <system:String x:Key="Icon.Button.Close">&#xf00d;</system:String>
+    <system:String x:Key="Icon.Button.Restore">&#xf2d2;</system:String>
+    <system:String x:Key="Icon.Button.Maximize">&#xf2d0;</system:String>
+    <system:String x:Key="Icon.Button.Minimize">&#xf2d1;</system:String>
+    <system:String x:Key="Icon.Button.Trash">&#xf1f8;</system:String>
 </ResourceDictionary>

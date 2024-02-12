@@ -17,6 +17,10 @@
         <Setter Property="FontSize" Value="{StaticResource FontSize.Normal}"/>
     </Style>
 
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Icon" Value="../Images/icon-aurora-guard.png"/>
+    </Style>
+
   
 
 </ResourceDictionary>
