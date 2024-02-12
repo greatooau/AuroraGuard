@@ -12,11 +12,21 @@ public class MainViewModel : ViewModel
 {
 	private readonly ICredentialRepository _credentialRepository;
     private readonly IDialogService _dialogService;
+    private readonly IFileService _fileService;
+    private readonly IAppService _appService;
+    private readonly IEncryptionService _encryptionService;
 
-	public MainViewModel(ICredentialRepository credentialRepository, IDialogService dialogService)
+    public MainViewModel(ICredentialRepository credentialRepository, 
+                         IDialogService dialogService,
+                         IFileService fileService,
+                         IAppService appService,
+                         IEncryptionService encryptionService)
 	{
 		_credentialRepository = credentialRepository;
         _dialogService = dialogService;
+        _fileService = fileService;
+        _appService = appService;
+        _encryptionService = encryptionService;
 
         DisplayItemCommand = new AsyncRelayCommand(DisplaySelectedItem);
         LoadedCommand = new AsyncRelayCommand(LoadAsync);
@@ -91,7 +101,6 @@ public class MainViewModel : ViewModel
     #region DisplayItemCommand
 
     public ICommand DisplayItemCommand { get; }
-
     private async Task DisplaySelectedItem(object? parameter, CancellationToken token)
     {
         if (SelectedCredential is null) return;
@@ -100,12 +109,12 @@ public class MainViewModel : ViewModel
 
         var credential = await _credentialRepository.GetById(id);
 
-        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService)
+        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService)
         {
             Id = id,
             AppName = credential.AppName,
             Notes = credential.Notes,
-            Password = credential.AccessPassword,
+            Password = _encryptionService.DecryptPassword(credential.AccessPassword),
             Username = credential.AccessUser
         };
         
@@ -120,12 +129,12 @@ public class MainViewModel : ViewModel
 
         DisplayedCredential!.CredentialEdited -= DisplayedCredential_CredentialEdited;
 
-        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService)
+        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService)
         {
             Id = e.Id,
             AppName = e.Credential.AppName,
             Notes = e.Credential.Notes,
-            Password = e.Credential.AccessPassword,
+            Password = _encryptionService.DecryptPassword(e.Credential.AccessPassword),
             Username = e.Credential.AccessUser
         };
 
@@ -152,8 +161,9 @@ public class MainViewModel : ViewModel
     public void AddCredential(object? parameter)
     {
         var handler = (IHandleCredentialCreationEdition)parameter!;
+        CreateEditCredentialWindowViewModel viewModel = new(_credentialRepository, _encryptionService, _dialogService, _fileService, _appService);
 
-        var createdCredential = handler.CreateCredential(_credentialRepository);
+        var createdCredential = handler.CreateCredential(viewModel);
 
         if (createdCredential is null)
         {

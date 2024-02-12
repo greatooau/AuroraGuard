@@ -11,11 +11,18 @@ public class DisplayedCredentialViewModel : ViewModel
 {
     private readonly ICredentialRepository _credentialRepository;
     private readonly IDialogService _dialogService;
+    private readonly IEncryptionService _encryptionService;
+    private readonly IAppService _appService;
+    private readonly IFileService _fileService;
 
-    public DisplayedCredentialViewModel(ICredentialRepository credentialRepository, IDialogService dialogService)
+    public DisplayedCredentialViewModel(ICredentialRepository credentialRepository, IDialogService dialogService,
+        IEncryptionService encryptionService, IAppService appService, IFileService fileService)
     {
         _credentialRepository = credentialRepository;
         _dialogService = dialogService;
+        _encryptionService = encryptionService;
+        _appService = appService;
+        _fileService = fileService;
         DeleteCommand = new AsyncRelayCommand(Delete);
         EditCredentialCommand = new AsyncRelayCommand(EditCredential);
     }
@@ -76,7 +83,21 @@ public class DisplayedCredentialViewModel : ViewModel
 
         var selectedCredential = await _credentialRepository.GetById(Id);
 
-        handler.EditCredential(_credentialRepository, selectedCredential);
+        CreateEditCredentialWindowViewModel viewModel = new(_credentialRepository, _encryptionService, _dialogService, _fileService, _appService)
+        {
+            Id = selectedCredential.Id,
+            AppName = selectedCredential.AppName,
+            Notes = selectedCredential.Notes,
+            Username = selectedCredential.AccessUser,
+            Password = _encryptionService.DecryptPassword(selectedCredential.AccessPassword),
+            ImagePath = selectedCredential.ImagePath,
+            IsEdition = true,
+            OriginalCredential = selectedCredential
+        };
+
+        var wasEdited = handler.EditCredential(viewModel);
+
+        if (!wasEdited) return;
         
         selectedCredential = await _credentialRepository.GetById(Id);
 

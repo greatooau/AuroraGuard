@@ -10,7 +10,7 @@ public class EnterPasswordViewModel : ViewModel
     private readonly IAuthService _authService;
     private readonly IDialogService _dialogService;
     public readonly INavigationService NavigationService;
-    
+
     public EnterPasswordViewModel(IAuthService authService, IDialogService dialogService, INavigationService navigationService)
     {
         _authService = authService;

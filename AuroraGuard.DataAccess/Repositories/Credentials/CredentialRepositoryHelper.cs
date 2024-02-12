@@ -7,14 +7,14 @@ public static class CredentialRepositoryHelper
 {
 	public static object GenerateCreateParam(CreateCredentialDto createCredentialDto)
 	{
-		return new Credential
+		return new 
 		{
-			Id = createCredentialDto.Id,
-			AccessUser = createCredentialDto.AccessUser,
-			AccessPassword = createCredentialDto.AccessPassword,
-			AppName = createCredentialDto.AppName,
-			Notes = createCredentialDto.Notes,
-			ImagePath = createCredentialDto.ImagePath,
+			createCredentialDto.Id,
+			createCredentialDto.AccessUser,
+			createCredentialDto.AccessPassword,
+			createCredentialDto.AppName,
+			createCredentialDto.Notes,
+			createCredentialDto.ImagePath,
 			CreatedAt = DateTime.Now,
 			UpdatedAt = DateTime.Now
 		};

@@ -34,7 +34,7 @@ public class CredentialRepository(IDbConnection connection, IDapperRepository da
             connection.Close();
         }
 		
-		return (Credential)param;
+		return await GetById(createCredentialDto.Id);
 	}
 
 	public Task<Credential> GetById(Guid id)
