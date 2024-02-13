@@ -51,6 +51,7 @@ internal static class DependencyContainer
         
 		services.AddTransient<IDialogService, DialogService>();
 		services.AddSingleton<INavigationService, NavigationService>();
+        services.AddTransient<IClipboardService, ClipboardService>();
 		
 		return services;
 	}
