@@ -3,6 +3,7 @@ using AuroraGuard.Core.Abstract;
 using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Interfaces.Services;
+using System.Linq;
 using AuroraGuard.UserInterface.ViewModels.EventArgsTypes;
 
 namespace AuroraGuard.UserInterface.ViewModels.Main;
@@ -25,6 +26,8 @@ public class DisplayedCredentialViewModel : ViewModel
         _fileService = fileService;
         DeleteCommand = new AsyncRelayCommand(Delete);
         EditCredentialCommand = new AsyncRelayCommand(EditCredential);
+        ShowPasswordCommand = new RelayCommand(_ => IsPasswordVisible = !IsPasswordVisible);
+        CopyToClipboardCommand = new RelayCommand(CopyToClipboard);
     }
 
     private string? _appName;
@@ -44,7 +47,7 @@ public class DisplayedCredentialViewModel : ViewModel
     private string? _password;
     public string? Password
     {
-        get => _password;
+        get => _password == null || IsPasswordVisible ? _password : new string('*', _password.Length);
         set => SetField(ref _password, value);
     }
 
@@ -54,7 +57,22 @@ public class DisplayedCredentialViewModel : ViewModel
         get => _notes;
         set => SetField(ref _notes, value);
     }
+
+    private bool _passwordVisible;
+    public bool IsPasswordVisible
+    {
+        get => _passwordVisible;
+        set
+        {
+            SetField(ref _passwordVisible, value);
+
+            OnPropertyChanged(nameof(Password));
+        }
+    }
+
     public Guid Id { private get; init; }
+
+    #region DeleteCommand
 
     public ICommand DeleteCommand { get; }
     private async Task Delete(object? parameter, CancellationToken token)
@@ -75,6 +93,10 @@ public class DisplayedCredentialViewModel : ViewModel
         }
     }
     public event EventHandler<AlteredItemEventArgs>? CredentialDeleted;
+
+    #endregion
+
+    #region EditCredentialCommand
 
     public ICommand EditCredentialCommand { get; }
     public async Task EditCredential(object? parameter, CancellationToken token)
@@ -98,10 +120,33 @@ public class DisplayedCredentialViewModel : ViewModel
         var wasEdited = handler.EditCredential(viewModel);
 
         if (!wasEdited) return;
-        
+
         selectedCredential = await _credentialRepository.GetById(Id);
 
-        CredentialEdited?.Invoke(this, new AlteredItemEventArgs { Credential = selectedCredential, Id  = Id});
+        CredentialEdited?.Invoke(this, new AlteredItemEventArgs { Credential = selectedCredential, Id = Id });
     }
     public event EventHandler<AlteredItemEventArgs>? CredentialEdited;
+
+    #endregion
+
+    #region CopyToClipboardCommand
+
+    public ICommand CopyToClipboardCommand { get; }
+
+    private void CopyToClipboard(object? param)
+    {
+        var clipboardHandler = (ICopyToClipboard)param!;
+
+        if (_password is null) return;
+
+        clipboardHandler.CopyText(_password);
+    }
+
+    #endregion
+
+    #region ShowPasswordCommand
+
+    public ICommand ShowPasswordCommand { get; }
+
+    #endregion
 }

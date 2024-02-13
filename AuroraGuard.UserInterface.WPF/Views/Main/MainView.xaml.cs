@@ -11,7 +11,7 @@ namespace AuroraGuard.UserInterface.WPF.Views.Main;
 /// <summary>
 /// Interaction logic for MainView.xaml
 /// </summary>
-public partial class MainView : UserControl, IHandleCredentialCreationEdition
+public partial class MainView : UserControl, IHandleCredentialCreationEdition, ICopyToClipboard
 {
 
     public MainView()
@@ -47,4 +47,5 @@ public partial class MainView : UserControl, IHandleCredentialCreationEdition
         return editCredentialWindow.ShowDialog() == true;
     }
 
+    public void CopyText(string text) => Clipboard.SetText(text);
 }

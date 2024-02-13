@@ -6,4 +6,7 @@
     <system:String x:Key="Icon.Button.Maximize">&#xf2d0;</system:String>
     <system:String x:Key="Icon.Button.Minimize">&#xf2d1;</system:String>
     <system:String x:Key="Icon.Button.Trash">&#xf1f8;</system:String>
+    <system:String x:Key="Icon.Button.Eye">&#xf06e;</system:String>
+    <system:String x:Key="Icon.Button.EyeSlash">&#xf070;</system:String>
+    <system:String x:Key="Icon.Button.Clipboard">&#xf328;</system:String>
 </ResourceDictionary>
