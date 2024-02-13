@@ -7,12 +7,15 @@
     <Color x:Key="App.LightMainColor">#A4C8D2</Color>
     <SolidColorBrush x:Key="App.LightMainColor.Brush" Color="{StaticResource App.LightMainColor}"/>
 
-    <Color x:Key="App.StrongMainColor">#09B3D2</Color>
+    <Color x:Key="App.StrongMainColor">#1D7888</Color>
     <SolidColorBrush x:Key="App.StrongMainColor.Brush" Color="{StaticResource App.StrongMainColor}"/>
     <!-- #endregion -->
 
     <Color x:Key="App.SecondaryColor">#033675</Color>
     <SolidColorBrush x:Key="App.SecondaryColor.Brush" Color="{StaticResource App.SecondaryColor}"/>
+
+    <Color x:Key="App.DarkerSecondaryColor">#032D62</Color>
+    <SolidColorBrush x:Key="App.DarkerSecondaryColor.Brush" Color="{StaticResource App.DarkerSecondaryColor}"/>
 
     <!-- #region Background -->
     <Color x:Key="Background.LightGray.Color">#e5e5e5</Color>
