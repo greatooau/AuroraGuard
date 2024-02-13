@@ -14,18 +14,21 @@ public class MainViewModel : ViewModel
     private readonly IDialogService _dialogService;
     private readonly IFileService _fileService;
     private readonly IAppService _appService;
+    private readonly IClipboardService _clipboardService;
     private readonly IEncryptionService _encryptionService;
 
     public MainViewModel(ICredentialRepository credentialRepository, 
                          IDialogService dialogService,
                          IFileService fileService,
                          IAppService appService,
+                         IClipboardService clipboardService,
                          IEncryptionService encryptionService)
 	{
 		_credentialRepository = credentialRepository;
         _dialogService = dialogService;
         _fileService = fileService;
         _appService = appService;
+        _clipboardService = clipboardService;
         _encryptionService = encryptionService;
 
         DisplayItemCommand = new AsyncRelayCommand(DisplaySelectedItem);
@@ -109,7 +112,7 @@ public class MainViewModel : ViewModel
 
         var credential = await _credentialRepository.GetById(id);
 
-        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService)
+        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService, _clipboardService)
         {
             Id = id,
             AppName = credential.AppName,
@@ -129,7 +132,7 @@ public class MainViewModel : ViewModel
 
         DisplayedCredential!.CredentialEdited -= DisplayedCredential_CredentialEdited;
 
-        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService)
+        DisplayedCredential = new DisplayedCredentialViewModel(_credentialRepository, _dialogService, _encryptionService, _appService, _fileService, _clipboardService)
         {
             Id = e.Id,
             AppName = e.Credential.AppName,

@@ -4,6 +4,7 @@ using AuroraGuard.Core.Interfaces;
 using AuroraGuard.Core.Interfaces.Repositories;
 using AuroraGuard.Core.Interfaces.Services;
 using System.Linq;
+using AuroraGuard.Core.Enum;
 using AuroraGuard.UserInterface.ViewModels.EventArgsTypes;
 
 namespace AuroraGuard.UserInterface.ViewModels.Main;
@@ -15,15 +16,17 @@ public class DisplayedCredentialViewModel : ViewModel
     private readonly IEncryptionService _encryptionService;
     private readonly IAppService _appService;
     private readonly IFileService _fileService;
+    private readonly IClipboardService _clipboardService;
 
     public DisplayedCredentialViewModel(ICredentialRepository credentialRepository, IDialogService dialogService,
-        IEncryptionService encryptionService, IAppService appService, IFileService fileService)
+        IEncryptionService encryptionService, IAppService appService, IFileService fileService, IClipboardService clipboardService)
     {
         _credentialRepository = credentialRepository;
         _dialogService = dialogService;
         _encryptionService = encryptionService;
         _appService = appService;
         _fileService = fileService;
+        _clipboardService = clipboardService;
         DeleteCommand = new AsyncRelayCommand(Delete);
         EditCredentialCommand = new AsyncRelayCommand(EditCredential);
         ShowPasswordCommand = new RelayCommand(_ => IsPasswordVisible = !IsPasswordVisible);
@@ -135,11 +138,17 @@ public class DisplayedCredentialViewModel : ViewModel
 
     private void CopyToClipboard(object? param)
     {
-        var clipboardHandler = (ICopyToClipboard)param!;
-
-        if (_password is null) return;
-
-        clipboardHandler.CopyText(_password);
+        switch ((string)param!)
+        {
+            case Fields.Password:
+                _clipboardService.CopyText(_password!);
+                break;
+            case Fields.Username:
+                _clipboardService.CopyText(_username!); 
+                break;
+            default:
+                throw new ArgumentException($"The parameter {param} must be a string defined in Field class", nameof(param));
+        }
     }
 
     #endregion

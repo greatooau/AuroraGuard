@@ -8,6 +8,7 @@
              x:Name="ThisView"
              xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:valueConverters="clr-namespace:AuroraGuard.UserInterface.WPF.ValueConverters"
+             xmlns:enum="clr-namespace:AuroraGuard.Core.Enum;assembly=AuroraGuard.Core"
              d:DesignHeight="400" d:DesignWidth="600">
     <UserControl.Resources>
         <valueConverters:CutOffConverter Cutoff="0" x:Key="CutOffConverter"/>
@@ -83,108 +84,123 @@ Converter={StaticResource ImagePathToImageSource}}"
                 Background="{StaticResource BackGround.LightGray.Brush}"/>
 
         <Grid Grid.Column="2">
-            <StackPanel Background="White"
+            <ScrollViewer>
+
+                <StackPanel Background="White"
                         d:ZIndex="1"
                         d:Visibility="Visible"
                         DataContext="{Binding DisplayedCredential}">
-                <StackPanel.Style>
-                    <Style TargetType="{x:Type StackPanel}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=CredentialListView, Path=SelectedIndex}" 
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=CredentialListView, Path=SelectedIndex}" 
                                          Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
-                <TextBlock Text="{Binding AppName, FallbackValue='John Depresseiiid'}" 
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock Text="{Binding AppName, FallbackValue='John Depresseiiid'}" 
                            TextAlignment="Center" 
                            FontSize="{StaticResource FontSize.Large}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Column="0"
+                        <StackPanel Grid.Column="0"
                                 Margin="10 0 0 0"
                                 Grid.Row="0" >
-                        <TextBlock Text="Usuario" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Username}"/>
-                    </StackPanel>
 
-                    <StackPanel Grid.Row="1"
-                                Grid.Column="0"
-                                Margin="10 0 0 0" >
-                        <StackPanel Orientation="Horizontal">
-
-                            <TextBlock Text="Contraseña" FontWeight="Bold"/>
-                            <Button Margin="10 0 5 0"
-                                    FontSize="10"
-                                    FontFamily="{StaticResource FontFamily.FontAwesome.Regular}"
-                                    MinWidth="20"
-                                    Command="{Binding ShowPasswordCommand}"
-                                    Height="20">
-                                <Button.Style>
-                                    <Style BasedOn="{StaticResource TextButton}" TargetType="{x:Type Button}">
-                                        <Setter Property="Content" Value="{StaticResource Icon.Button.Eye}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsPasswordVisible}" Value="true">
-                                                <Setter Property="Content" Value="{StaticResource Icon.Button.EyeSlash}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-
-                            <Button Command="{Binding CopyToClipboardCommand}"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Usuario" FontWeight="Bold"/>
+                                <Button Command="{Binding CopyToClipboardCommand}"
+                                    Margin="10 0"
                                     FontSize="10"
                                     FontFamily="{StaticResource FontFamily.FontAwesome.Regular}"
                                     MinWidth="20"
                                     Style="{StaticResource TextButton}"
-                                    CommandParameter="{Binding ElementName=ThisView}"
+                                    CommandParameter="{x:Static enum:Fields.Username}"
                                     Content="{StaticResource Icon.Button.Clipboard}"
                                     Height="20"/>
+                            </StackPanel>
+                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Username}"/>
                         </StackPanel>
-                        <TextBlock Text="{Binding Password}"/>
-                    </StackPanel>
 
-                    
+                        <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="10 0 0 0" >
+                            <StackPanel Orientation="Horizontal">
 
-                    <StackPanel Grid.Column="1" 
-                    Grid.Row="0"
-                    Grid.RowSpan="3">
-                        <TextBlock Text="Notas" FontWeight="Bold"/>
-                        <TextBlock Width="230" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Notes}"/>
-                    </StackPanel>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="41*"/>
-                        <ColumnDefinition Width="158*"/>
-                        <ColumnDefinition Width="199*"/>
-                    </Grid.ColumnDefinitions>
+                                <TextBlock Text="Contraseña" FontWeight="Bold"/>
+                                <Button Margin="10 0 5 0"
+                                    FontSize="10"
+                                    FontFamily="{StaticResource FontFamily.FontAwesome.Regular}"
+                                    MinWidth="20"
+                                    Command="{Binding ShowPasswordCommand}"
+                                    CommandParameter="{x:Static enum:Fields.Password}"
+                                    Height="20">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource TextButton}" TargetType="{x:Type Button}">
+                                            <Setter Property="Content" Value="{StaticResource Icon.Button.Eye}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsPasswordVisible}" Value="true">
+                                                    <Setter Property="Content" Value="{StaticResource Icon.Button.EyeSlash}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
 
-                    <Button Style="{StaticResource TextButton}" 
+                                <Button Command="{Binding CopyToClipboardCommand}"
+                                    FontSize="10"
+                                    FontFamily="{StaticResource FontFamily.FontAwesome.Regular}"
+                                    MinWidth="20"
+                                    Style="{StaticResource TextButton}"
+                                    CommandParameter="{x:Static enum:Fields.Password}"
+                                    Content="{StaticResource Icon.Button.Clipboard}"
+                                    Height="20"/>
+                            </StackPanel>
+                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Password}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" 
+                                Margin="5 0"
+                                Grid.Row="0"
+                                Grid.RowSpan="3">
+                            <TextBlock Text="Notas" FontWeight="Bold"/>
+                            <TextBlock Width="230" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Notes}"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="41*"/>
+                            <ColumnDefinition Width="158*"/>
+                            <ColumnDefinition Width="199*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Style="{StaticResource TextButton}" 
                             Grid.Column="0" 
                             Margin="10,10,10,10" 
                             Padding="5" 
                             Content="Borrar" 
                             Command="{Binding DeleteCommand}" Grid.ColumnSpan="2"/>
-                    <Button Style="{StaticResource TextButton}" 
+                        <Button Style="{StaticResource TextButton}" 
                             Grid.Column="2" 
                             Margin="10,10,10,10" 
                             Padding="5" 
                             Content="Editar" 
                             Command="{Binding EditCredentialCommand}"
                             CommandParameter="{Binding ElementName=ThisView}"/>
-                </Grid>
-            </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
 
             <Border Background="White">
                 <Border.Style>
